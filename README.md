@@ -1,1 +1,0 @@
-# artellapipe-libs-pyblish
