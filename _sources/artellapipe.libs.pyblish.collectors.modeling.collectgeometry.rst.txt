@@ -1,0 +1,7 @@
+artellapipe.libs.pyblish.collectors.modeling.collectgeometry module
+===================================================================
+
+.. automodule:: artellapipe.libs.pyblish.collectors.modeling.collectgeometry
+   :members:
+   :undoc-members:
+   :show-inheritance:

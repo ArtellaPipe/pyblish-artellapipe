@@ -1,0 +1,17 @@
+artellapipe.libs.pyblish.collectors.modeling package
+====================================================
+
+Submodules
+----------
+
+.. toctree::
+
+   artellapipe.libs.pyblish.collectors.modeling.collectgeometry
+
+Module contents
+---------------
+
+.. automodule:: artellapipe.libs.pyblish.collectors.modeling
+   :members:
+   :undoc-members:
+   :show-inheritance:

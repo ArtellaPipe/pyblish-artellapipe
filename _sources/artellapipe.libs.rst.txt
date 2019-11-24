@@ -1,0 +1,17 @@
+artellapipe.libs package
+========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   artellapipe.libs.pyblish
+
+Module contents
+---------------
+
+.. automodule:: artellapipe.libs
+   :members:
+   :undoc-members:
+   :show-inheritance:

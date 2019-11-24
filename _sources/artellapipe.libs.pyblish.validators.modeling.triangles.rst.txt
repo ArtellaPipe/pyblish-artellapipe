@@ -1,0 +1,7 @@
+artellapipe.libs.pyblish.validators.modeling.triangles module
+=============================================================
+
+.. automodule:: artellapipe.libs.pyblish.validators.modeling.triangles
+   :members:
+   :undoc-members:
+   :show-inheritance:

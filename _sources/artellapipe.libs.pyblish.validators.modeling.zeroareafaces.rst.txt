@@ -1,0 +1,7 @@
+artellapipe.libs.pyblish.validators.modeling.zeroareafaces module
+=================================================================
+
+.. automodule:: artellapipe.libs.pyblish.validators.modeling.zeroareafaces
+   :members:
+   :undoc-members:
+   :show-inheritance:

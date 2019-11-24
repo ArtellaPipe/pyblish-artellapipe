@@ -1,0 +1,17 @@
+artellapipe.libs.pyblish.core package
+=====================================
+
+Submodules
+----------
+
+.. toctree::
+
+   artellapipe.libs.pyblish.core.tool
+
+Module contents
+---------------
+
+.. automodule:: artellapipe.libs.pyblish.core
+   :members:
+   :undoc-members:
+   :show-inheritance:
