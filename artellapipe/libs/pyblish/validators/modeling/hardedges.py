@@ -49,7 +49,7 @@ class ValidateHardEdges(pyblish.api.InstancePlugin):
             edge_it = OpenMaya.MItMeshEdge(sel_it.getDagPath())
             object_name = sel_it.getDagPath().getPath()
             while not edge_it.isDone():
-                if edge_it.isSmooth == False and not edge_it.onBoundary() == False:
+                if edge_it.isSmooth is False and not edge_it.onBoundary() is False:
                     edge_index = edge_it.index()
                     component_name = '{}.e[{}]'.format(object_name, edge_index)
                     hard_edges_found.append(component_name)
