@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Module that contains hard edge validation implementation
+Module that contains penetrating UV range validator implementation
 """
 
 from __future__ import print_function, division, absolute_import
@@ -12,25 +12,25 @@ __license__ = "MIT"
 __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
-import tpDccLib as tp
+
+import tpDcc as tp
 
 import pyblish.api
 
 
-class ValidateHardEdges(pyblish.api.InstancePlugin):
+class ValidateUVRange(pyblish.api.InstancePlugin):
     """
-    Checks if there are geometry with hard edges
+    Checks if a geometry node has its UVs in valid range (0-10)
     """
 
-    label = 'Topology - Hard Edges'
+    label = 'UVs - UV Range'
     order = pyblish.api.ValidatorOrder
     hosts = ['maya']
     families = ['geometry']
-    must_pass = True
+    optional = False
 
     def process(self, instance):
 
-        import maya.cmds as cmds
         import maya.api.OpenMaya as OpenMaya
 
         node = instance.data.get('node', None)
@@ -43,28 +43,30 @@ class ValidateHardEdges(pyblish.api.InstancePlugin):
         for node in nodes_to_check:
             meshes_selection_list.add(node)
 
-        hard_edges_found = list()
+        bad_uv_range = list()
         sel_it = OpenMaya.MItSelectionList(meshes_selection_list)
         while not sel_it.isDone():
-            edge_it = OpenMaya.MItMeshEdge(sel_it.getDagPath())
+            poly_it = OpenMaya.MItMeshPolygon(sel_it.getDagPath())
             object_name = sel_it.getDagPath().getPath()
-            while not edge_it.isDone():
-                if edge_it.isSmooth is False and not edge_it.onBoundary() is False:
-                    edge_index = edge_it.index()
-                    component_name = '{}.e[{}]'.format(object_name, edge_index)
-                    hard_edges_found.append(component_name)
-                edge_it.next()
+            while not poly_it.isDone():
+                uvs = poly_it.getUVs()
+                for index, each_uvs in enumerate(uvs):
+                    if index == 0:
+                        for uv in each_uvs:
+                            if uv < 0 or uv > 10:
+                                component_name = '{}.f[{}]'.format(object_name, poly_it.index())
+                                bad_uv_range.append(component_name)
+                                break
+                    elif index == 1:
+                        for uv in each_uvs:
+                            if uv < 0:
+                                component_name = '{}.f[{}]'.format(object_name, poly_it.index())
+                                bad_uv_range.append(component_name)
+                                break
+                poly_it.next(None)
             sel_it.next()
 
-        if hard_edges_found:
-            msg = 'Hard Edges in the following components: {}'.format(hard_edges_found)
-            if self.must_pass:
-                cmds.select(hard_edges_found)
-                self.log.info('Edges with hard edges selected in viewport!')
-                self.log.error(msg)
-                assert not hard_edges_found, msg
-            else:
-                self.log.warning(msg)
+        assert not bad_uv_range, 'Bad UV Range found in following geometry nodes: {}'.format(bad_uv_range)
 
     def _nodes_to_check(self, node):
 

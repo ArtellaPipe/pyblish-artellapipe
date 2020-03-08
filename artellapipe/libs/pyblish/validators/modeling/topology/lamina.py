@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Module that contains polygon star-like validation implementation
+Module that contains lamina validation implementation
 """
 
 from __future__ import print_function, division, absolute_import
@@ -12,25 +12,25 @@ __license__ = "MIT"
 __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
-import tpDccLib as tp
+
+import tpDcc as tp
 
 import pyblish.api
 
 
-class ValidateStarLike(pyblish.api.InstancePlugin):
+class ValidateLamina(pyblish.api.InstancePlugin):
     """
-    Checks if there are polygons with start-like topology
+    Checks if there are geometry with ngons
     """
 
-    label = 'Topology - Star-Like Polygons'
+    label = 'Topology - Lamina'
     order = pyblish.api.ValidatorOrder
     hosts = ['maya']
     families = ['geometry']
-    must_pass = True
+    optional = False
 
     def process(self, instance):
 
-        import maya.cmds as cmds
         import maya.api.OpenMaya as OpenMaya
 
         node = instance.data.get('node', None)
@@ -43,28 +43,21 @@ class ValidateStarLike(pyblish.api.InstancePlugin):
         for node in nodes_to_check:
             meshes_selection_list.add(node)
 
-        startlike_found = list()
+        lamina_found = list()
         sel_it = OpenMaya.MItSelectionList(meshes_selection_list)
         while not sel_it.isDone():
-            poly_it = OpenMaya.MItMeshPolygon(sel_it.getDagPath())
+            face_it = OpenMaya.MItMeshPolygon(sel_it.getDagPath())
             object_name = sel_it.getDagPath().getPath()
-            while not poly_it.isDone():
-                if not poly_it.isStarlike():
-                    poly_index = poly_it.index()
-                    component_name = '{}.e[{}]'.format(object_name, poly_index)
-                    startlike_found.append(component_name)
-                poly_it.next(None)
+            while not face_it.isDone():
+                lamina_faces = face_it.isLamina()
+                if lamina_faces:
+                    face_index = face_it.index()
+                    component_name = '{}.f[{}]'.format(object_name, face_index)
+                    lamina_found.append(component_name)
+                face_it.next(None)
             sel_it.next()
 
-        if startlike_found:
-            msg = 'Star-Like polys found in the following components: {}'.format(startlike_found)
-            if self.must_pass:
-                cmds.select(startlike_found)
-                self.log.info('Star-Like edges selected in viewport!')
-                self.log.error(msg)
-                assert not startlike_found, msg
-            else:
-                self.log.warning(msg)
+        assert not lamina_found, 'Lamina Faces in the following components: {}'.format(lamina_found)
 
     def _nodes_to_check(self, node):
 

@@ -25,6 +25,7 @@ class ValidateNormals(pyblish.api.InstancePlugin):
     order = pyblish.api.ValidatorOrder
     hosts = ['maya']
     families = ['geometry']
+    optional = False
 
     def process(self, instance):
 
@@ -37,5 +38,3 @@ class ValidateNormals(pyblish.api.InstancePlugin):
             invalid.append(mesh) if any(locked) else None
 
         assert not invalid, 'Meshes found with locked normals: {}'.format(invalid)
-
-        self.log.info('The normals of {} are correct.'.format(instance))

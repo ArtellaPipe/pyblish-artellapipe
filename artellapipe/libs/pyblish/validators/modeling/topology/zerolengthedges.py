@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Module that contains non manifold edge validation implementation
+Module that contains zero length edges validation implementation
 """
 
 from __future__ import print_function, division, absolute_import
@@ -12,25 +12,25 @@ __license__ = "MIT"
 __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
-import tpDccLib as tp
+
+import tpDcc as tp
 
 import pyblish.api
 
 
-class ValidateNonManifoldEdges(pyblish.api.InstancePlugin):
+class ValidateZeroLengthEdges(pyblish.api.InstancePlugin):
     """
-    Checks if there are geometry with non manifold edges
+    Checks if there edges with zero length
     """
 
-    label = 'Topology - Non-Manifold Edges'
+    label = 'Topology - Zero Length Edges'
     order = pyblish.api.ValidatorOrder
     hosts = ['maya']
     families = ['geometry']
-    must_pass = True
+    optional = False
 
     def process(self, instance):
 
-        import maya.cmds as cmds
         import maya.api.OpenMaya as OpenMaya
 
         node = instance.data.get('node', None)
@@ -43,28 +43,21 @@ class ValidateNonManifoldEdges(pyblish.api.InstancePlugin):
         for node in nodes_to_check:
             meshes_selection_list.add(node)
 
-        non_manifold_edges_found = list()
+        zero_length_edges_found = list()
         sel_it = OpenMaya.MItSelectionList(meshes_selection_list)
         while not sel_it.isDone():
             edge_it = OpenMaya.MItMeshEdge(sel_it.getDagPath())
             object_name = sel_it.getDagPath().getPath()
             while not edge_it.isDone():
-                if edge_it.numConnectedFaces() > 2:
+                if edge_it.length() < 0.00000001:
                     edge_index = edge_it.index()
                     component_name = '{}.e[{}]'.format(object_name, edge_index)
-                    non_manifold_edges_found.append(component_name)
+                    zero_length_edges_found.append(component_name)
                 edge_it.next()
             sel_it.next()
 
-        if non_manifold_edges_found:
-            msg = 'Non-Manifold Edges in the following components: {}'.format(non_manifold_edges_found)
-            if self.must_pass:
-                cmds.select(non_manifold_edges_found)
-                self.log.info('Non-Manifold edges selected in viewport!')
-                self.log.error(msg)
-                assert not non_manifold_edges_found, msg
-            else:
-                self.log.warning(msg)
+        assert not zero_length_edges_found, 'Zero Length Edges found in the following components: {}'.format(
+            zero_length_edges_found)
 
     def _nodes_to_check(self, node):
 

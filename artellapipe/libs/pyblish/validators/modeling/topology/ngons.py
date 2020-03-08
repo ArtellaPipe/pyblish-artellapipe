@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Module that contains triangles validation implementation
+Module that contains ngons validation implementation
 """
 
 from __future__ import print_function, division, absolute_import
@@ -12,21 +12,21 @@ __license__ = "MIT"
 __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
-import tpDccLib as tp
+import tpDcc as tp
 
 import pyblish.api
 
 
-class ValidateTriangles(pyblish.api.InstancePlugin):
+class ValidateNGons(pyblish.api.InstancePlugin):
     """
-    If one of the geometries is tringulated, we must ensure that the rest of the geometry is also triangulated
+    Checks if there are geometry with ngons
     """
 
-    label = 'Topology - Triangles'
+    label = 'Topology - NGons'
     order = pyblish.api.ValidatorOrder
     hosts = ['maya']
     families = ['geometry']
-    must_pass = False
+    optional = False
 
     def process(self, instance):
 
@@ -42,32 +42,21 @@ class ValidateTriangles(pyblish.api.InstancePlugin):
         for node in nodes_to_check:
             meshes_selection_list.add(node)
 
-        triangles_found = list()
-        total_nodes = len(nodes_to_check)
-        tringulated_meshes = 0
+        ngons_found = list()
         sel_it = OpenMaya.MItSelectionList(meshes_selection_list)
         while not sel_it.isDone():
-            mesh_triangles = list()
             face_it = OpenMaya.MItMeshPolygon(sel_it.getDagPath())
             object_name = sel_it.getDagPath().getPath()
             while not face_it.isDone():
                 num_of_edges = face_it.getEdges()
-                if len(num_of_edges) == 3:
+                if len(num_of_edges) > 4:
                     face_index = face_it.index()
                     component_name = '{}.f[{}]'.format(object_name, face_index)
-                    mesh_triangles.append(component_name)
-                    triangles_found.append(component_name)
-                    tringulated_meshes += 1
+                    ngons_found.append(component_name)
                 face_it.next(None)
-            if mesh_triangles:
-                self.log.info('Geometry {} has triangles!'.format(object_name))
-            # assert mesh_triangles, 'Mesh with no triangles found: {}'.format(object_name)
             sel_it.next()
 
-        if triangles_found:
-            if self.must_pass:
-                assert tringulated_meshes == total_nodes, 'Not all meshes of {} are triangulated!'.format(instance)
-                self.log.info('All geometry nodes for {} are triangulated.'.format(instance))
+        assert not ngons_found, 'NGons in the following components: {}'.format(ngons_found)
 
     def _nodes_to_check(self, node):
 

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Module that contains ngons validation implementation
+Module that contains penetrating missing UVs validator implementation
 """
 
 from __future__ import print_function, division, absolute_import
@@ -12,25 +12,25 @@ __license__ = "MIT"
 __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
-import tpDccLib as tp
+
+import tpDcc as tp
 
 import pyblish.api
 
 
-class ValidateNGons(pyblish.api.InstancePlugin):
+class ValidateMissingUVs(pyblish.api.InstancePlugin):
     """
-    Checks if there are geometry with ngons
+    Checks if a geometry node has missing UVs or not
     """
 
-    label = 'Topology - NGons'
+    label = 'UVs - Missing UVs'
     order = pyblish.api.ValidatorOrder
     hosts = ['maya']
     families = ['geometry']
-    must_pass = True
+    optional = False
 
     def process(self, instance):
 
-        import maya.cmds as cmds
         import maya.api.OpenMaya as OpenMaya
 
         node = instance.data.get('node', None)
@@ -43,29 +43,19 @@ class ValidateNGons(pyblish.api.InstancePlugin):
         for node in nodes_to_check:
             meshes_selection_list.add(node)
 
-        ngons_found = list()
+        missing_uvs_found = list()
         sel_it = OpenMaya.MItSelectionList(meshes_selection_list)
         while not sel_it.isDone():
-            face_it = OpenMaya.MItMeshPolygon(sel_it.getDagPath())
+            poly_it = OpenMaya.MItMeshPolygon(sel_it.getDagPath())
             object_name = sel_it.getDagPath().getPath()
-            while not face_it.isDone():
-                num_of_edges = face_it.getEdges()
-                if len(num_of_edges) > 4:
-                    face_index = face_it.index()
-                    component_name = '{}.f[{}]'.format(object_name, face_index)
-                    ngons_found.append(component_name)
-                face_it.next(None)
+            while not poly_it.isDone():
+                if not poly_it.hasUvs():
+                    component_name = '{}.f[{}]'.format(object_name, poly_it.index())
+                    missing_uvs_found.append(component_name)
+                poly_it.next(None)
             sel_it.next()
 
-        if ngons_found:
-            msg = 'NGons in the following components: {}'.format(ngons_found)
-            if self.must_pass:
-                cmds.select(ngons_found)
-                self.log.info('Faces with NGons selected in viewport!')
-                self.log.error(msg)
-                assert not ngons_found, msg
-            else:
-                self.log.warning(msg)
+        assert not missing_uvs_found, 'Missing UVs found in following geometry nodes: {}'.format(missing_uvs_found)
 
     def _nodes_to_check(self, node):
 

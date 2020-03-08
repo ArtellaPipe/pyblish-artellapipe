@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Module that contains penetrating uvs validation implementation
+Module that contains parent geometry validator implementation
 """
 
 from __future__ import print_function, division, absolute_import
@@ -13,21 +13,21 @@ __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
 
-import tpDccLib as tp
+import tpDcc as tp
 
 import pyblish.api
 
 
-class ValidatePenetratingUVs(pyblish.api.InstancePlugin):
+class ValidateParentGeometry(pyblish.api.InstancePlugin):
     """
-    Checks if a geometry node has its UVs penetrating or not
+    Checks if any geometry is parented under other geometry
     """
 
-    label = 'Topology - Penetrating UVs'
+    label = 'Transform - Parent Geometry'
     order = pyblish.api.ValidatorOrder
     hosts = ['maya']
     families = ['geometry']
-    must_pass = True
+    optional = False
 
     def process(self, instance):
 
@@ -39,24 +39,20 @@ class ValidatePenetratingUVs(pyblish.api.InstancePlugin):
         nodes_to_check = self._nodes_to_check(node)
         assert nodes_to_check, 'No Nodes to check found!'
 
-        penetrating_uvs_found = list()
+        parent_geometry = list()
         for node in nodes_to_check:
-            shape = tp.Dcc.list_shapes(node, full_path=True)
-            convert_to_faces = cmds.ls(cmds.polyListComponentConversion(shape, tf=True), fl=True)
-            overlapping = (cmds.polyUVOverlap(convert_to_faces, oc=True))
-            if overlapping:
-                for obj in overlapping:
-                    penetrating_uvs_found.append(obj)
+            shape_node = False
+            parents = cmds.listRelatives(node, p=True, fullPath=True)
+            if parents:
+                for parent in parents:
+                    parents_children = cmds.listRelatives(parent, fullPath=True)
+                    for children in parents_children:
+                        if cmds.nodeType(children) == 'mesh':
+                            shape_node = True
+            if shape_node:
+                parent_geometry.append(node)
 
-        if penetrating_uvs_found:
-            msg = 'Penetrating UVs found in following geometry nodes: {}'.format(penetrating_uvs_found)
-            if self.must_pass:
-                cmds.select(penetrating_uvs_found)
-                self.log.info('Geometry nodes with penetrating UVs selected in viewport!')
-                self.log.error(msg)
-                assert not penetrating_uvs_found, msg
-            else:
-                self.log.warning(msg)
+        assert not parent_geometry, 'Following geometry are parented under other geometry: {}'.format(parent_geometry)
 
     def _nodes_to_check(self, node):
 

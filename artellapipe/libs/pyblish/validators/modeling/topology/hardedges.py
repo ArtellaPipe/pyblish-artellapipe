@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Module that contains open edges validation implementation
+Module that contains hard edge validation implementation
 """
 
 from __future__ import print_function, division, absolute_import
@@ -12,25 +12,24 @@ __license__ = "MIT"
 __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
-import tpDccLib as tp
+import tpDcc as tp
 
 import pyblish.api
 
 
-class ValidateOpenEdges(pyblish.api.InstancePlugin):
+class ValidateHardEdges(pyblish.api.InstancePlugin):
     """
-    Checks if there are geometry with open edges
+    Checks if there are geometry with hard edges
     """
 
-    label = 'Topology - Open Edges'
+    label = 'Topology - Hard Edges'
     order = pyblish.api.ValidatorOrder
     hosts = ['maya']
     families = ['geometry']
-    must_pass = True
+    optional = False
 
     def process(self, instance):
 
-        import maya.cmds as cmds
         import maya.api.OpenMaya as OpenMaya
 
         node = instance.data.get('node', None)
@@ -43,28 +42,20 @@ class ValidateOpenEdges(pyblish.api.InstancePlugin):
         for node in nodes_to_check:
             meshes_selection_list.add(node)
 
-        open_edges_found = list()
+        hard_edges_found = list()
         sel_it = OpenMaya.MItSelectionList(meshes_selection_list)
         while not sel_it.isDone():
             edge_it = OpenMaya.MItMeshEdge(sel_it.getDagPath())
             object_name = sel_it.getDagPath().getPath()
             while not edge_it.isDone():
-                if edge_it.numConnectedEdges() < 2:
+                if edge_it.isSmooth is False and not edge_it.onBoundary() is False:
                     edge_index = edge_it.index()
                     component_name = '{}.e[{}]'.format(object_name, edge_index)
-                    open_edges_found.append(component_name)
+                    hard_edges_found.append(component_name)
                 edge_it.next()
             sel_it.next()
 
-        if open_edges_found:
-            msg = 'Open Edges in the following components: {}'.format(open_edges_found)
-            if self.must_pass:
-                cmds.select(open_edges_found)
-                self.log.info('Open edges selected in viewport!')
-                self.log.error(msg)
-                assert not open_edges_found, msg
-            else:
-                self.log.warning(msg)
+        assert not hard_edges_found, 'Hard Edges in the following components: {}'.format(hard_edges_found)
 
     def _nodes_to_check(self, node):
 

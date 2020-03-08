@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Module that contains poles validation implementation
+Module that contains cross borders UVs validator implementation
 """
 
 from __future__ import print_function, division, absolute_import
@@ -12,25 +12,25 @@ __license__ = "MIT"
 __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
-import tpDccLib as tp
+
+import tpDcc as tp
 
 import pyblish.api
 
 
-class ValidatePoles(pyblish.api.InstancePlugin):
+class ValidateCrossBorder(pyblish.api.InstancePlugin):
     """
-    Checks if there are geometry with poles (a vertex is connected to more than 5 edges)
+    Checks if a geometry node has cross borders
     """
 
-    label = 'Topology - Vertex Poles'
+    label = 'UVs - Cross Border'
     order = pyblish.api.ValidatorOrder
     hosts = ['maya']
     families = ['geometry']
-    must_pass = True
+    optional = False
 
     def process(self, instance):
 
-        import maya.cmds as cmds
         import maya.api.OpenMaya as OpenMaya
 
         node = instance.data.get('node', None)
@@ -43,28 +43,34 @@ class ValidatePoles(pyblish.api.InstancePlugin):
         for node in nodes_to_check:
             meshes_selection_list.add(node)
 
-        poles_found = list()
+        cross_borders = list()
         sel_it = OpenMaya.MItSelectionList(meshes_selection_list)
         while not sel_it.isDone():
-            vertex_it = OpenMaya.MItMeshVertex(sel_it.getDagPath())
+            poly_it = OpenMaya.MItMeshPolygon(sel_it.getDagPath())
             object_name = sel_it.getDagPath().getPath()
-            while not vertex_it.isDone():
-                if vertex_it.numConnectedEdges() > 5:
-                    vertex_index = vertex_it.index()
-                    component_name = '{}.v[{}]'.format(object_name, vertex_index)
-                    poles_found.append(component_name)
-                vertex_it.next()
+            while not poly_it.isDone():
+                u = None
+                v = None
+                uvs = poly_it.getUVs()
+                for index, each_uvs in enumerate(uvs):
+                    if index == 0:
+                        for uv in each_uvs:
+                            if u is None:
+                                u = int(uv)
+                            if u != int(uv):
+                                component_name = '{}.f[{}]'.format(object_name, poly_it.index())
+                                cross_borders.append(component_name)
+                    elif index == 1:
+                        for uv in each_uvs:
+                            if v is None:
+                                v = int(uv)
+                            if v != int(uv):
+                                component_name = '{}.f[{}]'.format(object_name, poly_it.index())
+                                cross_borders.append(component_name)
+                poly_it.next(None)
             sel_it.next()
 
-        if poles_found:
-            msg = 'Vertex Poles in the following components: {}'.format(poles_found)
-            if self.must_pass:
-                cmds.select(poles_found)
-                self.log.info('Vertex Poles selected in viewport!')
-                self.log.error(msg)
-                assert not poles_found, msg
-            else:
-                self.log.warning(msg)
+        assert not cross_borders, 'Cross Border found in following geometry nodes: {}'.format(cross_borders)
 
     def _nodes_to_check(self, node):
 

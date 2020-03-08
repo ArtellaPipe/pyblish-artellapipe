@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Module that contains zero length edges validation implementation
+Module that contains triangles validation implementation
 """
 
 from __future__ import print_function, division, absolute_import
@@ -12,26 +12,24 @@ __license__ = "MIT"
 __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
-
-import tpDccLib as tp
+import tpDcc as tp
 
 import pyblish.api
 
 
-class ValidateZeroLengthEdges(pyblish.api.InstancePlugin):
+class ValidateTriangles(pyblish.api.InstancePlugin):
     """
-    Checks if there edges with zero length
+    If one of the geometries is tringulated, we must ensure that the rest of the geometry is also triangulated
     """
 
-    label = 'Topology - Zero Length Edges'
+    label = 'Topology - Triangles'
     order = pyblish.api.ValidatorOrder
     hosts = ['maya']
     families = ['geometry']
-    must_pass = True
+    optional = False
 
     def process(self, instance):
 
-        import maya.cmds as cmds
         import maya.api.OpenMaya as OpenMaya
 
         node = instance.data.get('node', None)
@@ -44,28 +42,30 @@ class ValidateZeroLengthEdges(pyblish.api.InstancePlugin):
         for node in nodes_to_check:
             meshes_selection_list.add(node)
 
-        zero_length_edges_found = list()
+        triangles_found = list()
+        total_nodes = len(nodes_to_check)
+        tringulated_meshes = 0
         sel_it = OpenMaya.MItSelectionList(meshes_selection_list)
         while not sel_it.isDone():
-            edge_it = OpenMaya.MItMeshEdge(sel_it.getDagPath())
+            mesh_triangles = list()
+            face_it = OpenMaya.MItMeshPolygon(sel_it.getDagPath())
             object_name = sel_it.getDagPath().getPath()
-            while not edge_it.isDone():
-                if edge_it.length() < 0.00000001:
-                    edge_index = edge_it.index()
-                    component_name = '{}.e[{}]'.format(object_name, edge_index)
-                    zero_length_edges_found.append(component_name)
-                edge_it.next()
+            while not face_it.isDone():
+                num_of_edges = face_it.getEdges()
+                if len(num_of_edges) == 3:
+                    face_index = face_it.index()
+                    component_name = '{}.f[{}]'.format(object_name, face_index)
+                    mesh_triangles.append(component_name)
+                    triangles_found.append(component_name)
+                    tringulated_meshes += 1
+                face_it.next(None)
+            if mesh_triangles:
+                self.log.info('Geometry {} has triangles!'.format(object_name))
+            # assert mesh_triangles, 'Mesh with no triangles found: {}'.format(object_name)
             sel_it.next()
 
-        if zero_length_edges_found:
-            msg = 'Zero Length Edges found in the following components: {}'.format(zero_length_edges_found)
-            if self.must_pass:
-                cmds.select(zero_length_edges_found)
-                self.log.info('Zero Length edges selected in viewport!')
-                self.log.error(msg)
-                assert not zero_length_edges_found, msg
-            else:
-                self.log.warning(msg)
+        if triangles_found:
+            assert tringulated_meshes == total_nodes, 'Not all meshes of {} are triangulated!'.format(instance)
 
     def _nodes_to_check(self, node):
 

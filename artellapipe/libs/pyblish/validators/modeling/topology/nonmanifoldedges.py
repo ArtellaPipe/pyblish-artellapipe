@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Module that contains zero area faces validation implementation
+Module that contains non manifold edge validation implementation
 """
 
 from __future__ import print_function, division, absolute_import
@@ -12,26 +12,24 @@ __license__ = "MIT"
 __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
-
-import tpDccLib as tp
+import tpDcc as tp
 
 import pyblish.api
 
 
-class ValidateZeroAreaFaces(pyblish.api.InstancePlugin):
+class ValidateNonManifoldEdges(pyblish.api.InstancePlugin):
     """
-    Checks if there are faces with zero area
+    Checks if there are geometry with non manifold edges
     """
 
-    label = 'Topology - Zero Area Faces'
+    label = 'Topology - Non-Manifold Edges'
     order = pyblish.api.ValidatorOrder
     hosts = ['maya']
     families = ['geometry']
-    must_pass = True
+    optional = False
 
     def process(self, instance):
 
-        import maya.cmds as cmds
         import maya.api.OpenMaya as OpenMaya
 
         node = instance.data.get('node', None)
@@ -44,29 +42,21 @@ class ValidateZeroAreaFaces(pyblish.api.InstancePlugin):
         for node in nodes_to_check:
             meshes_selection_list.add(node)
 
-        zero_area_faces_found = list()
+        non_manifold_edges_found = list()
         sel_it = OpenMaya.MItSelectionList(meshes_selection_list)
         while not sel_it.isDone():
-            face_it = OpenMaya.MItMeshPolygon(sel_it.getDagPath())
+            edge_it = OpenMaya.MItMeshEdge(sel_it.getDagPath())
             object_name = sel_it.getDagPath().getPath()
-            while not face_it.isDone():
-                zero_area = face_it.zeroArea()
-                if zero_area:
-                    face_index = face_it.index()
-                    component_name = '{}.f[{}]'.format(object_name, face_index)
-                    zero_area_faces_found.append(component_name)
-                face_it.next(None)
+            while not edge_it.isDone():
+                if edge_it.numConnectedFaces() > 2:
+                    edge_index = edge_it.index()
+                    component_name = '{}.e[{}]'.format(object_name, edge_index)
+                    non_manifold_edges_found.append(component_name)
+                edge_it.next()
             sel_it.next()
 
-        if zero_area_faces_found:
-            msg = 'Zero Area faces found in the following components: {}'.format(zero_area_faces_found)
-            if self.must_pass:
-                cmds.select(zero_area_faces_found)
-                self.log.info('Zero Area faces selected in viewport!')
-                self.log.error(msg)
-                assert not zero_area_faces_found, msg
-            else:
-                self.log.warning(msg)
+        assert not non_manifold_edges_found, 'Non-Manifold Edges in the following components: {}'.format(
+            non_manifold_edges_found)
 
     def _nodes_to_check(self, node):
 
