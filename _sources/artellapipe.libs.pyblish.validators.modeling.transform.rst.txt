@@ -1,6 +1,15 @@
 artellapipe.libs.pyblish.validators.modeling.transform package
 ==============================================================
 
+Submodules
+----------
+
+.. toctree::
+
+   artellapipe.libs.pyblish.validators.modeling.transform.parentgeometry
+   artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots
+   artellapipe.libs.pyblish.validators.modeling.transform.unfrozentransform
+
 Module contents
 ---------------
 

@@ -1,0 +1,7 @@
+artellapipe.libs.pyblish.validators.scene.cleanscene module
+===========================================================
+
+.. automodule:: artellapipe.libs.pyblish.validators.scene.cleanscene
+   :members:
+   :undoc-members:
+   :show-inheritance:

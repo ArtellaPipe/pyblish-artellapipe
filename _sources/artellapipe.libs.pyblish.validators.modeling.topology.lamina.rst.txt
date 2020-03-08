@@ -1,0 +1,7 @@
+artellapipe.libs.pyblish.validators.modeling.topology.lamina module
+===================================================================
+
+.. automodule:: artellapipe.libs.pyblish.validators.modeling.topology.lamina
+   :members:
+   :undoc-members:
+   :show-inheritance:

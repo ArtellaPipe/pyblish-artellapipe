@@ -1,6 +1,13 @@
 artellapipe.libs.pyblish.extractors.layout package
 ==================================================
 
+Submodules
+----------
+
+.. toctree::
+
+   artellapipe.libs.pyblish.extractors.layout.shot
+
 Module contents
 ---------------
 

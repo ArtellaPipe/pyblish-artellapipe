@@ -1,6 +1,16 @@
 artellapipe.libs.pyblish.validators.scene package
 =================================================
 
+Submodules
+----------
+
+.. toctree::
+
+   artellapipe.libs.pyblish.validators.scene.cleanscene
+   artellapipe.libs.pyblish.validators.scene.displaylayers
+   artellapipe.libs.pyblish.validators.scene.noshaders
+   artellapipe.libs.pyblish.validators.scene.studentlicense
+
 Module contents
 ---------------
 

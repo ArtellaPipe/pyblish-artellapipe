@@ -1,0 +1,7 @@
+artellapipe.libs.pyblish.validators.scene.studentlicense module
+===============================================================
+
+.. automodule:: artellapipe.libs.pyblish.validators.scene.studentlicense
+   :members:
+   :undoc-members:
+   :show-inheritance:

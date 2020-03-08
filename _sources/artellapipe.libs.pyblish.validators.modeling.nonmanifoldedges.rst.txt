@@ -1,7 +1,0 @@
-artellapipe.libs.pyblish.validators.modeling.nonmanifoldedges module
-====================================================================
-
-.. automodule:: artellapipe.libs.pyblish.validators.modeling.nonmanifoldedges
-   :members:
-   :undoc-members:
-   :show-inheritance:

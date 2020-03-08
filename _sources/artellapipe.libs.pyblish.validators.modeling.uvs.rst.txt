@@ -1,6 +1,16 @@
 artellapipe.libs.pyblish.validators.modeling.uvs package
 ========================================================
 
+Submodules
+----------
+
+.. toctree::
+
+   artellapipe.libs.pyblish.validators.modeling.uvs.crossborder
+   artellapipe.libs.pyblish.validators.modeling.uvs.missinguvs
+   artellapipe.libs.pyblish.validators.modeling.uvs.penetratinguvs
+   artellapipe.libs.pyblish.validators.modeling.uvs.uvrange
+
 Module contents
 ---------------
 

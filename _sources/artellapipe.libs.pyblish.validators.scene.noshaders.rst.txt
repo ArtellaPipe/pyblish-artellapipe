@@ -1,0 +1,7 @@
+artellapipe.libs.pyblish.validators.scene.noshaders module
+==========================================================
+
+.. automodule:: artellapipe.libs.pyblish.validators.scene.noshaders
+   :members:
+   :undoc-members:
+   :show-inheritance:

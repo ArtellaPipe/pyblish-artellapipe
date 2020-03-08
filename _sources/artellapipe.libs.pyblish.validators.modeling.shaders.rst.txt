@@ -1,6 +1,13 @@
 artellapipe.libs.pyblish.validators.modeling.shaders package
 ============================================================
 
+Submodules
+----------
+
+.. toctree::
+
+   artellapipe.libs.pyblish.validators.modeling.shaders.shaders
+
 Module contents
 ---------------
 

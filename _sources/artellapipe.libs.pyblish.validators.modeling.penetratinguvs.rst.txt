@@ -1,7 +1,0 @@
-artellapipe.libs.pyblish.validators.modeling.penetratinguvs module
-==================================================================
-
-.. automodule:: artellapipe.libs.pyblish.validators.modeling.penetratinguvs
-   :members:
-   :undoc-members:
-   :show-inheritance:

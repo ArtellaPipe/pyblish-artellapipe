@@ -1,7 +1,0 @@
-artellapipe.libs.pyblish.validators.modeling.hardedges module
-=============================================================
-
-.. automodule:: artellapipe.libs.pyblish.validators.modeling.hardedges
-   :members:
-   :undoc-members:
-   :show-inheritance:

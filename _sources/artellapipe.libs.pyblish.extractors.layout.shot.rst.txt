@@ -1,0 +1,7 @@
+artellapipe.libs.pyblish.extractors.layout.shot module
+======================================================
+
+.. automodule:: artellapipe.libs.pyblish.extractors.layout.shot
+   :members:
+   :undoc-members:
+   :show-inheritance:

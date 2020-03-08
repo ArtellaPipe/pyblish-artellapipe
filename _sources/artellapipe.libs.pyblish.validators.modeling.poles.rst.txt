@@ -1,7 +1,0 @@
-artellapipe.libs.pyblish.validators.modeling.poles module
-=========================================================
-
-.. automodule:: artellapipe.libs.pyblish.validators.modeling.poles
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,7 +1,0 @@
-artellapipe.libs.pyblish.validators.modeling.openedges module
-=============================================================
-
-.. automodule:: artellapipe.libs.pyblish.validators.modeling.openedges
-   :members:
-   :undoc-members:
-   :show-inheritance:

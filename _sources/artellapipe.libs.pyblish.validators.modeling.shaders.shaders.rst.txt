@@ -1,0 +1,7 @@
+artellapipe.libs.pyblish.validators.modeling.shaders.shaders module
+===================================================================
+
+.. automodule:: artellapipe.libs.pyblish.validators.modeling.shaders.shaders
+   :members:
+   :undoc-members:
+   :show-inheritance:

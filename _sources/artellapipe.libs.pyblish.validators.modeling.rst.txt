@@ -12,24 +12,6 @@ Subpackages
    artellapipe.libs.pyblish.validators.modeling.transform
    artellapipe.libs.pyblish.validators.modeling.uvs
 
-Submodules
-----------
-
-.. toctree::
-
-   artellapipe.libs.pyblish.validators.modeling.hardedges
-   artellapipe.libs.pyblish.validators.modeling.lamina
-   artellapipe.libs.pyblish.validators.modeling.ngons
-   artellapipe.libs.pyblish.validators.modeling.nonmanifoldedges
-   artellapipe.libs.pyblish.validators.modeling.openedges
-   artellapipe.libs.pyblish.validators.modeling.penetratinguvs
-   artellapipe.libs.pyblish.validators.modeling.poles
-   artellapipe.libs.pyblish.validators.modeling.starlike
-   artellapipe.libs.pyblish.validators.modeling.triangles
-   artellapipe.libs.pyblish.validators.modeling.validatenormals
-   artellapipe.libs.pyblish.validators.modeling.zeroareafaces
-   artellapipe.libs.pyblish.validators.modeling.zerolengthedges
-
 Module contents
 ---------------
 

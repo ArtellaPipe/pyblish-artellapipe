@@ -1,0 +1,7 @@
+artellapipe.libs.pyblish.validators.modeling.uvs.crossborder module
+===================================================================
+
+.. automodule:: artellapipe.libs.pyblish.validators.modeling.uvs.crossborder
+   :members:
+   :undoc-members:
+   :show-inheritance:
