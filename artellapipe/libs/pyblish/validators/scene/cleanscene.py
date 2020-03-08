@@ -51,7 +51,7 @@ class ValidateCleanUnusedPlugins(pyblish.api.InstancePlugin):
 
         # This functionality is not available in old Maya versions
         list_cmds = dir(cmds)
-        if not 'unknownPlugin' in list_cmds:
+        if 'unknownPlugin' not in list_cmds:
             return
 
         unknown_plugins = cmds.unknownPlugin(query=True, list=True)
