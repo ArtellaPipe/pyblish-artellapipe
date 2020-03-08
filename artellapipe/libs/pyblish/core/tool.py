@@ -12,29 +12,27 @@ __license__ = "MIT"
 __maintainer__ = "Tomas Poveda"
 __email__ = "tpovedatd@gmail.com"
 
-import os
 import logging
 
 import pyblish.api
 import pyblish_lite
 
-import tpDccLib as tp
+import tpDcc as tp
 
 import artellapipe.register
 
 LOGGER = logging.getLogger()
 
 
-class ArtellaPyblishTool(artellapipe.Tool, object):
-    def __init__(self, project, config):
+class ArtellaPyblishTool(artellapipe.ToolWidget, object):
+    def __init__(self, project, config, settings, parent):
 
         self._pyblish_window = None
         self._registered_plugins = list()
 
-        super(ArtellaPyblishTool, self).__init__(project=project, config=config)
+        super(ArtellaPyblishTool, self).__init__(project=project, config=config, settings=settings, parent=parent)
         self._setup_host()
 
-    def post_attacher_set(self):
         pyblish_win = pyblish_lite.show()
         self.set_pyblish_window(pyblish_win)
         pyblish_win.setStyleSheet(pyblish_win.styleSheet() + """\n
@@ -92,8 +90,6 @@ class ArtellaPyblishTool(artellapipe.Tool, object):
         if self._pyblish_window:
             return
 
-        # print(type(pyblish_window.controller.context))
-        # pyblish_window.controller.context.data['project'] = self._project
         # pyblish_window.refresh()
 
         pyblish_window.controller.was_reset.connect(self._on_controller_reset)
@@ -131,14 +127,17 @@ class ArtellaPyblishTool(artellapipe.Tool, object):
         Internal function that registers current available plugins in project
         """
 
-        plugins_to_register = self.config.get('pyblish_plugins', list())
+        plugins_to_register = self.config.get('pyblish_plugins', dict())
         if not plugins_to_register:
             LOGGER.warning('No Pyblish Plugins defined to load')
             return
 
-        for plugin_name in plugins_to_register:
-            plguin_class = artellapipe.PyblishMgr().get_plugin(plugin_name)
-            self.register_plugin(plguin_class)
+        for plugin_name, plugin_attrs in plugins_to_register.items():
+            plugin_class = artellapipe.PyblishMgr().get_plugin(plugin_name)
+            if plugin_attrs:
+                for attr, value in plugin_attrs.items():
+                    setattr(plugin_class, attr, value)
+            self.register_plugin(plugin_class)
 
     def _deregister_plugins(self):
         """
