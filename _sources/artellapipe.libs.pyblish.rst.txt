@@ -8,7 +8,7 @@ Subpackages
 
    artellapipe.libs.pyblish.collectors
    artellapipe.libs.pyblish.core
-   artellapipe.libs.pyblish.processors
+   artellapipe.libs.pyblish.extractors
    artellapipe.libs.pyblish.validators
 
 Module contents

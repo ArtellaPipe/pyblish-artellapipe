@@ -1,0 +1,10 @@
+artellapipe.libs.pyblish.collectors.layout package
+==================================================
+
+Module contents
+---------------
+
+.. automodule:: artellapipe.libs.pyblish.collectors.layout
+   :members:
+   :undoc-members:
+   :show-inheritance:

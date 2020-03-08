@@ -1,0 +1,10 @@
+artellapipe.libs.pyblish.validators.scene package
+=================================================
+
+Module contents
+---------------
+
+.. automodule:: artellapipe.libs.pyblish.validators.scene
+   :members:
+   :undoc-members:
+   :show-inheritance:

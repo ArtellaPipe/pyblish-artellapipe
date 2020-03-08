@@ -1,0 +1,10 @@
+artellapipe.libs.pyblish.collectors.general package
+===================================================
+
+Module contents
+---------------
+
+.. automodule:: artellapipe.libs.pyblish.collectors.general
+   :members:
+   :undoc-members:
+   :show-inheritance:

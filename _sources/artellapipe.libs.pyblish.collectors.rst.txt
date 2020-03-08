@@ -6,6 +6,8 @@ Subpackages
 
 .. toctree::
 
+   artellapipe.libs.pyblish.collectors.general
+   artellapipe.libs.pyblish.collectors.layout
    artellapipe.libs.pyblish.collectors.modeling
 
 Module contents

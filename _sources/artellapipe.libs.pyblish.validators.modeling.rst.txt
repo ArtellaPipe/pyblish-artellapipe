@@ -1,6 +1,17 @@
 artellapipe.libs.pyblish.validators.modeling package
 ====================================================
 
+Subpackages
+-----------
+
+.. toctree::
+
+   artellapipe.libs.pyblish.validators.modeling.general
+   artellapipe.libs.pyblish.validators.modeling.shaders
+   artellapipe.libs.pyblish.validators.modeling.topology
+   artellapipe.libs.pyblish.validators.modeling.transform
+   artellapipe.libs.pyblish.validators.modeling.uvs
+
 Submodules
 ----------
 

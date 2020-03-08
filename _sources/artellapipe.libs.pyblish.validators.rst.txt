@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
    artellapipe.libs.pyblish.validators.modeling
+   artellapipe.libs.pyblish.validators.scene
 
 Module contents
 ---------------

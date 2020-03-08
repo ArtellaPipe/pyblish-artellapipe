@@ -1,0 +1,10 @@
+artellapipe.libs.pyblish.validators.modeling.uvs package
+========================================================
+
+Module contents
+---------------
+
+.. automodule:: artellapipe.libs.pyblish.validators.modeling.uvs
+   :members:
+   :undoc-members:
+   :show-inheritance:

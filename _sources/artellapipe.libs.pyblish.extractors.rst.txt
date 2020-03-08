@@ -1,0 +1,17 @@
+artellapipe.libs.pyblish.extractors package
+===========================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   artellapipe.libs.pyblish.extractors.layout
+
+Module contents
+---------------
+
+.. automodule:: artellapipe.libs.pyblish.extractors
+   :members:
+   :undoc-members:
+   :show-inheritance:

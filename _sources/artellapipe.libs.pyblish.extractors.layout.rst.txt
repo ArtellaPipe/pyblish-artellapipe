@@ -1,0 +1,10 @@
+artellapipe.libs.pyblish.extractors.layout package
+==================================================
+
+Module contents
+---------------
+
+.. automodule:: artellapipe.libs.pyblish.extractors.layout
+   :members:
+   :undoc-members:
+   :show-inheritance:
