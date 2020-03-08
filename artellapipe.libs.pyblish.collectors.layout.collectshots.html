@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>artellapipe.libs.pyblish.core package &mdash; artellapipe 0.0.l documentation</title>
+  <title>artellapipe.libs.pyblish.collectors.layout.collectshots module &mdash; artellapipe 0.0.l documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="artellapipe.libs.pyblish.core.publisher module" href="artellapipe.libs.pyblish.core.publisher.html" />
-    <link rel="prev" title="artellapipe.libs.pyblish.collectors.modeling.collectgeometry module" href="artellapipe.libs.pyblish.collectors.modeling.collectgeometry.html" /> 
+    <link rel="next" title="artellapipe.libs.pyblish.collectors.modeling package" href="artellapipe.libs.pyblish.collectors.modeling.html" />
+    <link rel="prev" title="artellapipe.libs.pyblish.collectors.layout package" href="artellapipe.libs.pyblish.collectors.layout.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -150,13 +150,17 @@
         
           <li><a href="artellapipe.libs.pyblish.html">artellapipe.libs.pyblish package</a> &raquo;</li>
         
-      <li>artellapipe.libs.pyblish.core package</li>
+          <li><a href="artellapipe.libs.pyblish.collectors.html">artellapipe.libs.pyblish.collectors package</a> &raquo;</li>
+        
+          <li><a href="artellapipe.libs.pyblish.collectors.layout.html">artellapipe.libs.pyblish.collectors.layout package</a> &raquo;</li>
+        
+      <li>artellapipe.libs.pyblish.collectors.layout.collectshots module</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/artellapipe.libs.pyblish.core.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/artellapipe.libs.pyblish.collectors.layout.collectshots.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -170,20 +174,49 @@
 
            <div itemprop="articleBody">
             
-  <div class="section" id="artellapipe-libs-pyblish-core-package">
-<h1>artellapipe.libs.pyblish.core package<a class="headerlink" href="#artellapipe-libs-pyblish-core-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="artellapipe.libs.pyblish.core.publisher.html">artellapipe.libs.pyblish.core.publisher module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="artellapipe.libs.pyblish.core.tool.html">artellapipe.libs.pyblish.core.tool module</a></li>
-</ul>
-</div>
-</div>
-<div class="section" id="module-artellapipe.libs.pyblish.core">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-artellapipe.libs.pyblish.core" title="Permalink to this headline">¶</a></h2>
-</div>
+  <div class="section" id="module-artellapipe.libs.pyblish.collectors.layout.collectshots">
+<span id="artellapipe-libs-pyblish-collectors-layout-collectshots-module"></span><h1>artellapipe.libs.pyblish.collectors.layout.collectshots module<a class="headerlink" href="#module-artellapipe.libs.pyblish.collectors.layout.collectshots" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots">
+<em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.pyblish.collectors.layout.collectshots.</code><code class="sig-name descname">CollectShots</code><a class="headerlink" href="#artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyblish.plugin.ContextPlugin</span></code></p>
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots.hosts">
+<code class="sig-name descname">hosts</code><em class="property"> = ['maya']</em><a class="headerlink" href="#artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots.hosts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots.id">
+<code class="sig-name descname">id</code><em class="property"> = 'f208cfa5-9198-429b-8c53-cc5e4d04a547'</em><a class="headerlink" href="#artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots.label">
+<code class="sig-name descname">label</code><em class="property"> = 'Collect Shots'</em><a class="headerlink" href="#artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots.log">
+<code class="sig-name descname">log</code><em class="property"> = &lt;Logger pyblish.CollectShots (DEBUG)&gt;</em><a class="headerlink" href="#artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots.log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots.order">
+<code class="sig-name descname">order</code><em class="property"> = 0</em><a class="headerlink" href="#artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots.order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots.process">
+<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">context</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.pyblish.collectors.layout.collectshots.CollectShots.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Primary processing method</p>
+<dl class="simple">
+<dt>Arguments:</dt><dd><p>context (Context): Context with which to process</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -198,10 +231,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="artellapipe.libs.pyblish.core.publisher.html" class="btn btn-neutral float-right" title="artellapipe.libs.pyblish.core.publisher module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="artellapipe.libs.pyblish.collectors.modeling.html" class="btn btn-neutral float-right" title="artellapipe.libs.pyblish.collectors.modeling package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="artellapipe.libs.pyblish.collectors.modeling.collectgeometry.html" class="btn btn-neutral float-left" title="artellapipe.libs.pyblish.collectors.modeling.collectgeometry module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="artellapipe.libs.pyblish.collectors.layout.html" class="btn btn-neutral float-left" title="artellapipe.libs.pyblish.collectors.layout package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

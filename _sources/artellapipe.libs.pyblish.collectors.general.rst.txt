@@ -1,6 +1,13 @@
 artellapipe.libs.pyblish.collectors.general package
 ===================================================
 
+Submodules
+----------
+
+.. toctree::
+
+   artellapipe.libs.pyblish.collectors.general.collectcomment
+
 Module contents
 ---------------
 

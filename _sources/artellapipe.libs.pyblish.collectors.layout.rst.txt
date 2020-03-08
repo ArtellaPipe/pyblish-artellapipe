@@ -1,6 +1,13 @@
 artellapipe.libs.pyblish.collectors.layout package
 ==================================================
 
+Submodules
+----------
+
+.. toctree::
+
+   artellapipe.libs.pyblish.collectors.layout.collectshots
+
 Module contents
 ---------------
 

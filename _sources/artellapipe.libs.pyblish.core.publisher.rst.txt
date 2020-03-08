@@ -1,0 +1,7 @@
+artellapipe.libs.pyblish.core.publisher module
+==============================================
+
+.. automodule:: artellapipe.libs.pyblish.core.publisher
+   :members:
+   :undoc-members:
+   :show-inheritance:

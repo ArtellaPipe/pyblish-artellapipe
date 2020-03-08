@@ -1,0 +1,7 @@
+artellapipe.libs.pyblish.collectors.layout.collectshots module
+==============================================================
+
+.. automodule:: artellapipe.libs.pyblish.collectors.layout.collectshots
+   :members:
+   :undoc-members:
+   :show-inheritance:

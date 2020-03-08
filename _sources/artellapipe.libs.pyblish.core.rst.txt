@@ -6,6 +6,7 @@ Submodules
 
 .. toctree::
 
+   artellapipe.libs.pyblish.core.publisher
    artellapipe.libs.pyblish.core.tool
 
 Module contents
