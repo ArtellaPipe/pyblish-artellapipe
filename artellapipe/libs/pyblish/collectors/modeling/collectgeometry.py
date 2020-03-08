@@ -19,14 +19,12 @@ class CollectGeometry(pyblish.api.ContextPlugin):
                 project = value
                 break
 
-        context.data['project'] = project
-
         assert project, 'Project not found'
 
         geo_meshes = cmds.ls(type='mesh')
         geo_transforms = [cmds.listRelatives(mesh, parent=True)[0] for mesh in geo_meshes]
 
         for node in geo_transforms:
-            instance = context.create_instance(node)
+            instance = context.create_instance(node, project=project)
             instance.data['node'] = node
             instance.data['family'] = 'geometry'
