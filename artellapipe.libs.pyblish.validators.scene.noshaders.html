@@ -178,10 +178,67 @@
 <span id="artellapipe-libs-pyblish-validators-scene-noshaders-module"></span><h1>artellapipe.libs.pyblish.validators.scene.noshaders module<a class="headerlink" href="#module-artellapipe.libs.pyblish.validators.scene.noshaders" title="Permalink to this headline">¶</a></h1>
 <p>Module that contains no shaders check validator</p>
 <dl class="class">
+<dt id="artellapipe.libs.pyblish.validators.scene.noshaders.CleanShaders">
+<em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.pyblish.validators.scene.noshaders.</code><code class="sig-name descname">CleanShaders</code><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.CleanShaders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyblish.plugin.Action</span></code></p>
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.validators.scene.noshaders.CleanShaders.id">
+<code class="sig-name descname">id</code><em class="property"> = '21b19bcf-128d-4303-b855-9537cc67af01'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.CleanShaders.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.validators.scene.noshaders.CleanShaders.label">
+<code class="sig-name descname">label</code><em class="property"> = 'Clean Shaders'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.CleanShaders.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.validators.scene.noshaders.CleanShaders.on">
+<code class="sig-name descname">on</code><em class="property"> = 'failed'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.CleanShaders.on" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="artellapipe.libs.pyblish.validators.scene.noshaders.CleanShaders.process">
+<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">context</em>, <em class="sig-param">plugin</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.CleanShaders.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="artellapipe.libs.pyblish.validators.scene.noshaders.SelectShaders">
+<em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.pyblish.validators.scene.noshaders.</code><code class="sig-name descname">SelectShaders</code><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.SelectShaders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyblish.plugin.Action</span></code></p>
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.validators.scene.noshaders.SelectShaders.id">
+<code class="sig-name descname">id</code><em class="property"> = '598af09d-6eda-4603-9e2e-065e35d50854'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.SelectShaders.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.validators.scene.noshaders.SelectShaders.label">
+<code class="sig-name descname">label</code><em class="property"> = 'Select Shaders'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.SelectShaders.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.validators.scene.noshaders.SelectShaders.on">
+<code class="sig-name descname">on</code><em class="property"> = 'failed'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.SelectShaders.on" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="artellapipe.libs.pyblish.validators.scene.noshaders.SelectShaders.process">
+<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">context</em>, <em class="sig-param">plugin</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.SelectShaders.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="artellapipe.libs.pyblish.validators.scene.noshaders.ValidateNoShadersInScene">
 <em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.pyblish.validators.scene.noshaders.</code><code class="sig-name descname">ValidateNoShadersInScene</code><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.ValidateNoShadersInScene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyblish.plugin.ContextPlugin</span></code></p>
 <p>Checks if current scene has shaders (apart from the standard ones)</p>
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.validators.scene.noshaders.ValidateNoShadersInScene.actions">
+<code class="sig-name descname">actions</code><em class="property"> = [&lt;class 'artellapipe.libs.pyblish.validators.scene.noshaders.SelectShaders'&gt;, &lt;class 'artellapipe.libs.pyblish.validators.scene.noshaders.CleanShaders'&gt;]</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.ValidateNoShadersInScene.actions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="artellapipe.libs.pyblish.validators.scene.noshaders.ValidateNoShadersInScene.hosts">
 <code class="sig-name descname">hosts</code><em class="property"> = ['maya']</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.ValidateNoShadersInScene.hosts" title="Permalink to this definition">¶</a></dt>
@@ -189,12 +246,12 @@
 
 <dl class="attribute">
 <dt id="artellapipe.libs.pyblish.validators.scene.noshaders.ValidateNoShadersInScene.id">
-<code class="sig-name descname">id</code><em class="property"> = '9ecbd76b-8788-49b1-b6aa-2d9ac1467610'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.ValidateNoShadersInScene.id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">id</code><em class="property"> = '27be16fd-6073-494d-9954-50431de2ad3d'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.ValidateNoShadersInScene.id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="artellapipe.libs.pyblish.validators.scene.noshaders.ValidateNoShadersInScene.label">
-<code class="sig-name descname">label</code><em class="property"> = 'Check Scene Shaders'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.ValidateNoShadersInScene.label" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">label</code><em class="property"> = 'Shaders - Check Scene Shaders'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.scene.noshaders.ValidateNoShadersInScene.label" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
