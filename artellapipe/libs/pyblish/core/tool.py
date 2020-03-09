@@ -134,6 +134,9 @@ class ArtellaPyblishTool(artellapipe.ToolWidget, object):
 
         for plugin_name, plugin_attrs in plugins_to_register.items():
             plugin_class = artellapipe.PyblishMgr().get_plugin(plugin_name)
+            if not plugin_class:
+                LOGGER.warning('Impossible to load Pyblish Plugin: {}!'.format(plugin_name))
+                continue
             if plugin_attrs:
                 for attr, value in plugin_attrs.items():
                     setattr(plugin_class, attr, value)
