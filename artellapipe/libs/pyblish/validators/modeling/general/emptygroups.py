@@ -18,6 +18,50 @@ import tpDcc as tp
 import pyblish.api
 
 
+class SelectEmptyGroups(pyblish.api.Action):
+    label = 'Select Empty Groups'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Select Empty Groups Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+        node = instance.data.get('node', None)
+        assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+        empty_groups = instance.data.get('empty_groups', None)
+        assert empty_groups, 'No empty groups found in instance: {}'.format(instance)
+
+        tp.Dcc.select_object(empty_groups, replace_selection=False)
+
+
+class DeleteEmptyGroups(pyblish.api.Action):
+    label = 'Delete Empty Groups'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Delete Empty Groups Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+        node = instance.data.get('node', None)
+        assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+        empty_groups = instance.data.get('empty_groups', None)
+        assert empty_groups, 'No empty groups found in instance: {}'.format(instance)
+
+        tp.Dcc.delete_object(empty_groups)
+
+
 class ValidateEmptyGroups(pyblish.api.InstancePlugin):
     """
     Checks any empty group that has no children
@@ -28,6 +72,7 @@ class ValidateEmptyGroups(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [SelectEmptyGroups, DeleteEmptyGroups]
 
     def process(self, instance):
 
@@ -44,6 +89,9 @@ class ValidateEmptyGroups(pyblish.api.InstancePlugin):
             children = cmds.listRelatives(node, ad=True, fullPath=True)
             if not children:
                 empty_groups.append(node)
+
+        if empty_groups:
+            instance.data['empty_groups'] = empty_groups
 
         assert not empty_groups, 'Following empty group has no children: {}'.format(empty_groups)
 

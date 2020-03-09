@@ -18,6 +18,38 @@ import tpDcc as tp
 import pyblish.api
 
 
+class DisableSmoothPreview(pyblish.api.Action):
+    label = 'Disable Smooth Preview'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Select Vertex Poles Action is only available in Maya!')
+            return False
+
+        import tpDcc.dccs.maya as maya
+
+        maya.cmds.undoInfo(openChunk=True)
+
+        try:
+            for instance in context:
+                if not instance.data['publish']:
+                    continue
+
+                shapes_to_smooth = instance.data.get('shapes_to_smooth', None)
+                if not shapes_to_smooth:
+                    continue
+
+                for shape in shapes_to_smooth:
+                    tp.Dcc.set_attribute_value(shape, 'displaySmoothMesh', False)
+        except Exception as exc:
+            self.log.error('Error while disabling smooth preview from shapes: {}'.format(exc))
+        finally:
+            maya.cmds.undoInfo(openChunk=False)
+
+        return True
+
+
 class ValidateGeometrySmoothPreview(pyblish.api.InstancePlugin):
     """
     Checks if mesh has smooth preview attribute disabled
@@ -28,6 +60,7 @@ class ValidateGeometrySmoothPreview(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [DisableSmoothPreview]
 
     def process(self, instance):
 
@@ -46,6 +79,8 @@ class ValidateGeometrySmoothPreview(pyblish.api.InstancePlugin):
                     if node not in smooth_previews:
                         smooth_previews[node] = list()
                     smooth_previews[node].append(shape)
+            if node in smooth_previews:
+                instance.data['shapes_to_smooth'] = smooth_previews[node]
 
         assert not smooth_previews, 'Following geometry nodes have shapes with Smooth Preview enabled: {}'.format(
             smooth_previews)

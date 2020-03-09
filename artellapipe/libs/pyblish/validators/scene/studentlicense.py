@@ -18,6 +18,36 @@ import tpDcc as tp
 import pyblish.api
 
 
+class CleanStudentLicense(pyblish.api.Action):
+    label = 'Clean Student License'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Clean Student License Action is only available in Maya!')
+            return False
+
+        from tpDcc.dccs.maya.core import helpers
+
+        scene_name = tp.Dcc.scene_name()
+        if not scene_name:
+            self.log.error('Error while cleaning student license. Save your scene first!')
+            return False
+        if not os.path.isfile(scene_name):
+            self.log.error('Error while cleaning student license. File "{}" does not exist!'.format(scene_name))
+            return False
+
+        self.log.info('Cleaning student license ...')
+        valid_clean = helpers.clean_student_line(scene_name)
+        if not valid_clean:
+            self.log.error('Was not possible to clean student license>!')
+            return False
+
+        self.log.info('Student License cleaned successfully!')
+
+        return True
+
+
 class ValidateStudentLicense(pyblish.api.ContextPlugin):
     """
     Checks if current scene has student license or not
@@ -27,6 +57,7 @@ class ValidateStudentLicense(pyblish.api.ContextPlugin):
     order = pyblish.api.ValidatorOrder
     hosts = ['maya']
     optional = False
+    actions = [CleanStudentLicense]
 
     def process(self, context):
 
