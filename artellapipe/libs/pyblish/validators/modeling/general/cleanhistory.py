@@ -18,9 +18,30 @@ import tpDcc as tp
 import pyblish.api
 
 
+class CleanHistory(pyblish.api.Action):
+    label = 'Clean History'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Clean History Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+            node = instance.data.get('node', None)
+            assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+            tp.Dcc.delete_history(node)
+
+        return True
+
+
 class ValidateCleanHistory(pyblish.api.InstancePlugin):
     """
-    Checks if a geometry node has unfrozen transforms
+    Checks if a geometry node has clean history
     """
 
     label = 'General - Clean History'
@@ -28,6 +49,7 @@ class ValidateCleanHistory(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [CleanHistory]
 
     def process(self, instance):
 
