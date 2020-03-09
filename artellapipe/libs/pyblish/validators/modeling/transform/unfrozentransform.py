@@ -18,6 +18,25 @@ import tpDcc as tp
 import pyblish.api
 
 
+class FreezeTransforms(pyblish.api.Action):
+    label = 'Freeze Transforms'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Freeze Transforms Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+            node = instance.data.get('node', None)
+            assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+            tp.Dcc.freeze_transforms(node, clean_history=True)
+
+
 class ValidateUnfrozenTransforms(pyblish.api.InstancePlugin):
     """
     Checks if a geometry node has unfrozen transforms
@@ -28,10 +47,11 @@ class ValidateUnfrozenTransforms(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [FreezeTransforms]
 
     def process(self, instance):
 
-        import maya.cmds as cmds
+        import tpDcc.dccs.maya as maya
 
         node = instance.data.get('node', None)
         assert tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
@@ -41,9 +61,9 @@ class ValidateUnfrozenTransforms(pyblish.api.InstancePlugin):
 
         unfrozen_transforms = list()
         for node in nodes_to_check:
-            translation = cmds.xform(node, query=True, worldSpace=True, translation=True)
-            rotation = cmds.xform(node, query=True, worldSpace=True, rotation=True)
-            scale = cmds.xform(node, query=True, worldSpace=True, scale=True)
+            translation = maya.cmds.xform(node, query=True, worldSpace=True, translation=True)
+            rotation = maya.cmds.xform(node, query=True, worldSpace=True, rotation=True)
+            scale = maya.cmds.xform(node, query=True, worldSpace=True, scale=True)
             if not translation == [0.0, 0.0, 0.0] or not rotation == [0.0, 0.0, 0.0] or not scale == [1.0, 1.0, 1.0]:
                 unfrozen_transforms.append(node)
 

@@ -18,6 +18,28 @@ import tpDcc as tp
 import pyblish.api
 
 
+class SelectZeroLengthEdges(pyblish.api.Action):
+    label = 'Select Zero Length Edges'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Select Zero Length Edges Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+            node = instance.data.get('node', None)
+            assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+            zero_length_edges = instance.data.get('zero_length_edges', None)
+            assert zero_length_edges, 'No zero length edges geometry found in instance: {}'.format(instance)
+
+            tp.Dcc.select_object(zero_length_edges, replace_selection=False)
+
+
 class ValidateZeroLengthEdges(pyblish.api.InstancePlugin):
     """
     Checks if there edges with zero length
@@ -28,6 +50,7 @@ class ValidateZeroLengthEdges(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [SelectZeroLengthEdges]
 
     def process(self, instance):
 
@@ -55,6 +78,9 @@ class ValidateZeroLengthEdges(pyblish.api.InstancePlugin):
                     zero_length_edges_found.append(component_name)
                 edge_it.next()
             sel_it.next()
+
+        if zero_length_edges_found:
+            instance.data['zero_length_edges'] = zero_length_edges_found
 
         assert not zero_length_edges_found, 'Zero Length Edges found in the following components: {}'.format(
             zero_length_edges_found)
