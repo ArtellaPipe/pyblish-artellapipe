@@ -7,7 +7,7 @@ pytest-cov
 coveralls
 sphinx
 sphinx_rtd_theme
-tpPyUtils
-tpDccLib
+tpDcc-libs-python
+tpDcc-core
 pyblish-base>=1.4
 pyblish-lite
