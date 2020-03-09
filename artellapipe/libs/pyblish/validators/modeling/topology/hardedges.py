@@ -17,6 +17,28 @@ import tpDcc as tp
 import pyblish.api
 
 
+class SelectHardEdges(pyblish.api.Action):
+    label = 'Select Hard Edges'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Select Hard Edges Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+            node = instance.data.get('node', None)
+            assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+            hard_edges = instance.data.get('hard_edges', None)
+            assert hard_edges, 'No hard edges geometry found in instance: {}'.format(instance)
+
+            tp.Dcc.select_object(hard_edges, replace_selection=False)
+
+
 class ValidateHardEdges(pyblish.api.InstancePlugin):
     """
     Checks if there are geometry with hard edges
@@ -27,6 +49,7 @@ class ValidateHardEdges(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [SelectHardEdges]
 
     def process(self, instance):
 
@@ -54,6 +77,9 @@ class ValidateHardEdges(pyblish.api.InstancePlugin):
                     hard_edges_found.append(component_name)
                 edge_it.next()
             sel_it.next()
+
+        if hard_edges_found:
+            instance.data['hard_edges'] = hard_edges_found
 
         assert not hard_edges_found, 'Hard Edges in the following components: {}'.format(hard_edges_found)
 

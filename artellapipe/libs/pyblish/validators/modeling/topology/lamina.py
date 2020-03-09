@@ -18,9 +18,31 @@ import tpDcc as tp
 import pyblish.api
 
 
+class SelectLaminaFaces(pyblish.api.Action):
+    label = 'Select Lamina Faces'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Select Lamina Faces Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+            node = instance.data.get('node', None)
+            assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+            lamina_faces = instance.data.get('lamina_faces', None)
+            assert lamina_faces, 'No lamina faces geometry found in instance: {}'.format(instance)
+
+            tp.Dcc.select_object(lamina_faces, replace_selection=False)
+
+
 class ValidateLamina(pyblish.api.InstancePlugin):
     """
-    Checks if there are geometry with ngons
+    Checks if there are geometry with lamina faces (face that folds over onto itself)
     """
 
     label = 'Topology - Lamina'
@@ -28,6 +50,7 @@ class ValidateLamina(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [SelectLaminaFaces]
 
     def process(self, instance):
 
@@ -56,6 +79,9 @@ class ValidateLamina(pyblish.api.InstancePlugin):
                     lamina_found.append(component_name)
                 face_it.next(None)
             sel_it.next()
+
+        if lamina_found:
+            instance.data['lamina_faces'] = lamina_found
 
         assert not lamina_found, 'Lamina Faces in the following components: {}'.format(lamina_found)
 

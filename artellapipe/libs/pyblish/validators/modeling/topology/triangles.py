@@ -17,6 +17,28 @@ import tpDcc as tp
 import pyblish.api
 
 
+class SelectTriangles(pyblish.api.Action):
+    label = 'Select Triangles'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Select Triangles Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+            node = instance.data.get('node', None)
+            assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+            triangles = instance.data.get('triangles', None)
+            assert triangles, 'No triangles geometry found in instance: {}'.format(instance)
+
+            tp.Dcc.select_object(triangles, replace_selection=False)
+
+
 class ValidateTriangles(pyblish.api.InstancePlugin):
     """
     If one of the geometries is tringulated, we must ensure that the rest of the geometry is also triangulated
@@ -27,6 +49,7 @@ class ValidateTriangles(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [SelectTriangles]
 
     def process(self, instance):
 
@@ -65,6 +88,7 @@ class ValidateTriangles(pyblish.api.InstancePlugin):
             sel_it.next()
 
         if triangles_found:
+            instance.data['triangles'] = triangles_found
             assert tringulated_meshes == total_nodes, 'Not all meshes of {} are triangulated!'.format(instance)
 
     def _nodes_to_check(self, node):

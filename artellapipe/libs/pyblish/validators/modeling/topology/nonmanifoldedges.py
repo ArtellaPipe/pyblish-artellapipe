@@ -17,6 +17,28 @@ import tpDcc as tp
 import pyblish.api
 
 
+class SelectNonManifoldEdges(pyblish.api.Action):
+    label = 'Select Non-Manifold Edges'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Select Non-Manifold Edges Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+            node = instance.data.get('node', None)
+            assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+            non_manifold_edges = instance.data.get('non_manifold_edges', None)
+            assert non_manifold_edges, 'No non-manifold edges geometry found in instance: {}'.format(instance)
+
+            tp.Dcc.select_object(non_manifold_edges, replace_selection=False)
+
+
 class ValidateNonManifoldEdges(pyblish.api.InstancePlugin):
     """
     Checks if there are geometry with non manifold edges
@@ -27,6 +49,7 @@ class ValidateNonManifoldEdges(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [SelectNonManifoldEdges]
 
     def process(self, instance):
 
@@ -54,6 +77,9 @@ class ValidateNonManifoldEdges(pyblish.api.InstancePlugin):
                     non_manifold_edges_found.append(component_name)
                 edge_it.next()
             sel_it.next()
+
+        if non_manifold_edges_found:
+            instance.data['non_manifold_edges'] = non_manifold_edges_found
 
         assert not non_manifold_edges_found, 'Non-Manifold Edges in the following components: {}'.format(
             non_manifold_edges_found)

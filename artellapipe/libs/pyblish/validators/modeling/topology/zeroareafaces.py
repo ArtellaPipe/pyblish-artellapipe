@@ -18,6 +18,28 @@ import tpDcc as tp
 import pyblish.api
 
 
+class SelectZeroAreaFaces(pyblish.api.Action):
+    label = 'Select Zero Area Faces'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Select Zero Area Faces Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+            node = instance.data.get('node', None)
+            assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+            zero_area_faces = instance.data.get('zero_area_faces', None)
+            assert zero_area_faces, 'No zero area faces geometry found in instance: {}'.format(instance)
+
+            tp.Dcc.select_object(zero_area_faces, replace_selection=False)
+
+
 class ValidateZeroAreaFaces(pyblish.api.InstancePlugin):
     """
     Checks if there are faces with zero area
@@ -28,6 +50,7 @@ class ValidateZeroAreaFaces(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [SelectZeroAreaFaces]
 
     def process(self, instance):
 
@@ -57,6 +80,9 @@ class ValidateZeroAreaFaces(pyblish.api.InstancePlugin):
                     zero_area_faces_found.append(component_name)
                 face_it.next(None)
             sel_it.next()
+
+        if zero_area_faces_found:
+            instance.data['zero_area_faces'] = zero_area_faces_found
 
         assert not zero_area_faces_found, 'Zero Area faces found in the following components: {}'.format(
             zero_area_faces_found)

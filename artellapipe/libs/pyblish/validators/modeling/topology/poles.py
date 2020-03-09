@@ -17,6 +17,28 @@ import tpDcc as tp
 import pyblish.api
 
 
+class SelectVertexPoles(pyblish.api.Action):
+    label = 'Select Vertex Poles'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Select Vertex Poles Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+            node = instance.data.get('node', None)
+            assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+            vertex_poles = instance.data.get('vertex_poles', None)
+            assert vertex_poles, 'No vertex poles geometry found in instance: {}'.format(instance)
+
+            tp.Dcc.select_object(vertex_poles, replace_selection=False)
+
+
 class ValidatePoles(pyblish.api.InstancePlugin):
     """
     Checks if there are geometry with poles (a vertex is connected to more than 5 edges)
@@ -27,6 +49,7 @@ class ValidatePoles(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [SelectVertexPoles]
 
     def process(self, instance):
 
@@ -54,6 +77,9 @@ class ValidatePoles(pyblish.api.InstancePlugin):
                     poles_found.append(component_name)
                 vertex_it.next()
             sel_it.next()
+
+        if poles_found:
+            instance.data['vertex_poles'] = poles_found
 
         assert not poles_found, 'Vertex Poles in the following components: {}'.format(poles_found)
 

@@ -17,6 +17,28 @@ import tpDcc as tp
 import pyblish.api
 
 
+class SelectStarLikePolygons(pyblish.api.Action):
+    label = 'Select Star-Like Polygons'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Select Star-Like Polygons Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+            node = instance.data.get('node', None)
+            assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+            star_like_polygons = instance.data.get('star_like_polygons', None)
+            assert star_like_polygons, 'No star-like polygons geometry found in instance: {}'.format(instance)
+
+            tp.Dcc.select_object(star_like_polygons, replace_selection=False)
+
+
 class ValidateStarLike(pyblish.api.InstancePlugin):
     """
     Checks if there are polygons with start-like topology
@@ -27,6 +49,7 @@ class ValidateStarLike(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [SelectStarLikePolygons]
 
     def process(self, instance):
 
@@ -54,6 +77,9 @@ class ValidateStarLike(pyblish.api.InstancePlugin):
                     starlike_found.append(component_name)
                 poly_it.next(None)
             sel_it.next()
+
+        if starlike_found:
+            instance.data['star_like_polygons'] = starlike_found
 
         assert not starlike_found, 'Star-Like polys found in the following components: {}'.format(starlike_found)
 

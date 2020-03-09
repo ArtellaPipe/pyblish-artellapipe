@@ -17,6 +17,28 @@ import tpDcc as tp
 import pyblish.api
 
 
+class SelectNgons(pyblish.api.Action):
+    label = 'Select Ngons'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Select Ngons Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+            node = instance.data.get('node', None)
+            assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+            ngons = instance.data.get('ngons', None)
+            assert ngons, 'No ngons geometry found in instance: {}'.format(instance)
+
+            tp.Dcc.select_object(ngons, replace_selection=False)
+
+
 class ValidateNGons(pyblish.api.InstancePlugin):
     """
     Checks if there are geometry with ngons
@@ -27,6 +49,7 @@ class ValidateNGons(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [SelectNgons]
 
     def process(self, instance):
 
@@ -55,6 +78,8 @@ class ValidateNGons(pyblish.api.InstancePlugin):
                     ngons_found.append(component_name)
                 face_it.next(None)
             sel_it.next()
+
+        instance.data['ngons'] = ngons_found
 
         assert not ngons_found, 'NGons in the following components: {}'.format(ngons_found)
 

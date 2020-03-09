@@ -17,6 +17,28 @@ import tpDcc as tp
 import pyblish.api
 
 
+class SelectOpenEdges(pyblish.api.Action):
+    label = 'Select Open Edges'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Select Open Edges Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish']:
+                continue
+
+            node = instance.data.get('node', None)
+            assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+            open_edges = instance.data.get('open_edges', None)
+            assert open_edges, 'No open edges geometry found in instance: {}'.format(instance)
+
+            tp.Dcc.select_object(open_edges, replace_selection=False)
+
+
 class ValidateOpenEdges(pyblish.api.InstancePlugin):
     """
     Checks if there are geometry with open edges
@@ -27,6 +49,7 @@ class ValidateOpenEdges(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
+    actions = [SelectOpenEdges]
 
     def process(self, instance):
 
@@ -54,6 +77,9 @@ class ValidateOpenEdges(pyblish.api.InstancePlugin):
                     open_edges_found.append(component_name)
                 edge_it.next()
             sel_it.next()
+
+        if open_edges_found:
+            instance.data['open_edges'] = open_edges_found
 
         assert not open_edges_found, 'Open Edges in the following components: {}'.format(open_edges_found)
 
