@@ -37,7 +37,8 @@ class RemoveFromDisplayLayer(pyblish.api.Action):
                     continue
 
                 node = instance.data.get('node', None)
-                assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+                assert node and tp.Dcc.object_exists(
+                    node), 'No valid node found in current instance: {}'.format(instance)
 
                 layer = maya.cmds.listConnections(node, type='displayLayer')
                 if not layer:
