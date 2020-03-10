@@ -27,6 +27,8 @@ class CleanHistory(pyblish.api.Action):
             self.log.warning('Clean History Action is only available in Maya!')
             return False
 
+        import tpDcc.dccs.maya as maya
+
         for instance in context:
             if not instance.data['publish']:
                 continue
@@ -35,6 +37,28 @@ class CleanHistory(pyblish.api.Action):
             assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
 
             tp.Dcc.delete_history(node)
+            shapes = maya.cmds.listRelatives(node, shapes=True, fullPath=True) or list()
+            for shape in shapes:
+                shape_short = tp.Dcc.node_short_name(shape)
+                tp.Dcc.delete_history(shape)
+
+                # We remove groupdIds and clean connections to memberWireframeColors
+                shape_history = maya.cmds.listHistory(shape)
+                for history_node in shape_history:
+                    if maya.cmds.nodeType(history_node) == 'groupId':
+                        maya.cmds.delete(history_node)
+                    elif maya.cmds.nodeType(history_node) == 'shadingEngine':
+                        if maya.cmds.attributeQuery('memberWireframeColor', node=history_node, exists=True):
+                            member_wire_color_attr = '{}.memberWireframeColor'.format(history_node)
+                            shading_engine_connections = maya.cmds.listConnections(member_wire_color_attr, plugs=True)
+                            if shading_engine_connections:
+                                for cnt in shading_engine_connections:
+                                    connected_node = cnt.split('.')[0].split(':')[-1]
+                                    if connected_node != shape_short:
+                                        continue
+                                    maya.cmds.disconnectAttr(member_wire_color_attr, cnt)
+                                    # Make sure that shapes do not loose its set
+                                    maya.cmds.sets(shape, edit=True, forceElement=history_node)
 
         return True
 
@@ -53,7 +77,7 @@ class ValidateCleanHistory(pyblish.api.InstancePlugin):
 
     def process(self, instance):
 
-        import maya.cmds as cmds
+        import tpDcc.dccs.maya as maya
 
         node = instance.data.get('node', None)
         assert tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
@@ -63,13 +87,12 @@ class ValidateCleanHistory(pyblish.api.InstancePlugin):
 
         history = dict()
         for node in nodes_to_check:
-            shape = cmds.listRelatives(node, shapes=True, fullPath=True)
-            if shape and cmds.nodeType(shape[0]) == 'mesh':
-                shape_history = cmds.listHistory(shape)
+            shapes = maya.cmds.listRelatives(node, shapes=True, fullPath=True)
+            if shapes and maya.cmds.nodeType(shapes[0]) == 'mesh':
+                shape_history = maya.cmds.listHistory(shapes)
                 history_size = len(shape_history)
                 if history_size > 1:
                     history[node] = shape_history
-                    history.append(node)
 
         assert not history, 'Non cleaned history found in following geometry nodes: {}'.format(history)
 
