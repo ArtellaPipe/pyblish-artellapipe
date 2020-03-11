@@ -34,7 +34,8 @@ class SelectNonManifoldEdges(pyblish.api.Action):
             assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
 
             non_manifold_edges = instance.data.get('non_manifold_edges', None)
-            assert non_manifold_edges, 'No non-manifold edges geometry found in instance: {}'.format(instance)
+            if not non_manifold_edges:
+                continue
 
             tp.Dcc.select_object(non_manifold_edges, replace_selection=False)
 

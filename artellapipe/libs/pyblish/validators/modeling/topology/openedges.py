@@ -34,7 +34,8 @@ class SelectOpenEdges(pyblish.api.Action):
             assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
 
             open_edges = instance.data.get('open_edges', None)
-            assert open_edges, 'No open edges geometry found in instance: {}'.format(instance)
+            if not open_edges:
+                continue
 
             tp.Dcc.select_object(open_edges, replace_selection=False)
 

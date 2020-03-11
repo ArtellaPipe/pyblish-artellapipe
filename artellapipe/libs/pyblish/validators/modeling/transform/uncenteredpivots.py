@@ -18,6 +18,30 @@ import tpDcc as tp
 import pyblish.api
 
 
+class SelectUncenteredTransforms(pyblish.api.Action):
+    label = 'Select Uncentered Transforms'
+    on = 'failed'
+
+    def process(self, context, plugin):
+        if not tp.is_maya():
+            self.log.warning('Center Pivot Action is only available in Maya!')
+            return False
+
+        for instance in context:
+            if not instance.data['publish'] or instance.data['_has_succeeded']:
+                continue
+
+            node = instance.data.get('node', None)
+            assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
+
+            uncentered_pivots = instance.data.get('uncentered_pivots', None)
+            assert uncentered_pivots, 'No uncentered pivots found in instance: {}'.format(instance)
+
+            tp.Dcc.select_object(uncentered_pivots, replace_selection=False)
+
+        return True
+
+
 class CenterPivot(pyblish.api.Action):
     label = 'Center Pivot'
     on = 'failed'
@@ -51,7 +75,7 @@ class ValidateUncenteredPivots(pyblish.api.InstancePlugin):
     hosts = ['maya']
     families = ['geometry']
     optional = False
-    actions = [CenterPivot]
+    actions = [SelectUncenteredTransforms, CenterPivot]
 
     def process(self, instance):
 
@@ -67,6 +91,9 @@ class ValidateUncenteredPivots(pyblish.api.InstancePlugin):
         for node in nodes_to_check:
             if maya.cmds.xform(node, query=True, worldSpace=True, rp=True) != [0, 0, 0]:
                 uncentered_pivots.append(node)
+
+        if uncentered_pivots:
+            instance.data['uncentered_pivots'] = uncentered_pivots
 
         assert not uncentered_pivots, 'Uncentered pivots found in following geometry nodes: {}'.format(
             uncentered_pivots)

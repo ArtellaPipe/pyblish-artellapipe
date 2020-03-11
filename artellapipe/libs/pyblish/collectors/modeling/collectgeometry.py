@@ -27,6 +27,6 @@ class CollectGeometry(pyblish.api.ContextPlugin):
         for node in geo_transforms:
             node_name = node.split('|')[-1].split(':')[-1]
             instance = context.create_instance(node_name, project=project)
-            instance.data['icon'] = 'cube'
+            instance.data['icon'] = 'cubes'
             instance.data['node'] = node
             instance.data['family'] = 'geometry'

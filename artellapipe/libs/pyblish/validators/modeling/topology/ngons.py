@@ -34,7 +34,8 @@ class SelectNgons(pyblish.api.Action):
             assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
 
             ngons = instance.data.get('ngons', None)
-            assert ngons, 'No ngons geometry found in instance: {}'.format(instance)
+            if not ngons:
+                continue
 
             tp.Dcc.select_object(ngons, replace_selection=False)
 

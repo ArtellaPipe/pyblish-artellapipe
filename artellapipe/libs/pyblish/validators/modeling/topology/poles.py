@@ -34,7 +34,8 @@ class SelectVertexPoles(pyblish.api.Action):
             assert node and tp.Dcc.object_exists(node), 'No valid node found in current instance: {}'.format(instance)
 
             vertex_poles = instance.data.get('vertex_poles', None)
-            assert vertex_poles, 'No vertex poles geometry found in instance: {}'.format(instance)
+            if not vertex_poles:
+                continue
 
             tp.Dcc.select_object(vertex_poles, replace_selection=False)
 
