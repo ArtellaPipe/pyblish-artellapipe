@@ -185,7 +185,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyblish.plugin.Action</span></code></p>
 <dl class="attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.CenterPivot.id">
-<code class="sig-name descname">id</code><em class="property"> = '27c0f126-aa51-4551-8041-244ff33adc16'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.CenterPivot.id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">id</code><em class="property"> = '7f9087e2-a3ab-4da3-8e6c-34357d7989b7'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.CenterPivot.id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -206,13 +206,39 @@
 </dd></dl>
 
 <dl class="class">
+<dt id="artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.SelectUncenteredTransforms">
+<em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.</code><code class="sig-name descname">SelectUncenteredTransforms</code><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.SelectUncenteredTransforms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyblish.plugin.Action</span></code></p>
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.SelectUncenteredTransforms.id">
+<code class="sig-name descname">id</code><em class="property"> = 'f529a718-36cd-47a3-b5b5-e732411d2ca7'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.SelectUncenteredTransforms.id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.SelectUncenteredTransforms.label">
+<code class="sig-name descname">label</code><em class="property"> = 'Select Uncentered Transforms'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.SelectUncenteredTransforms.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.SelectUncenteredTransforms.on">
+<code class="sig-name descname">on</code><em class="property"> = 'failed'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.SelectUncenteredTransforms.on" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.SelectUncenteredTransforms.process">
+<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">context</em>, <em class="sig-param">plugin</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.SelectUncenteredTransforms.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.ValidateUncenteredPivots">
 <em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.</code><code class="sig-name descname">ValidateUncenteredPivots</code><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.ValidateUncenteredPivots" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyblish.plugin.InstancePlugin</span></code></p>
 <p>Checks if a geometry node has uncentered pivots (pivots that are not centered to (0, 0,, 0) of the world</p>
 <dl class="attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.ValidateUncenteredPivots.actions">
-<code class="sig-name descname">actions</code><em class="property"> = [&lt;class 'artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.CenterPivot'&gt;]</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.ValidateUncenteredPivots.actions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">actions</code><em class="property"> = [&lt;class 'artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.SelectUncenteredTransforms'&gt;, &lt;class 'artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.CenterPivot'&gt;]</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.ValidateUncenteredPivots.actions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -227,7 +253,7 @@
 
 <dl class="attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.ValidateUncenteredPivots.id">
-<code class="sig-name descname">id</code><em class="property"> = '12366ff7-aa31-44c7-b849-eec037247c81'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.ValidateUncenteredPivots.id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">id</code><em class="property"> = 'a129a552-a839-4a48-b028-c393ee704905'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots.ValidateUncenteredPivots.id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
