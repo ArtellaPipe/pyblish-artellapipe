@@ -1,1 +1,3 @@
 include artellapipe/libs/pyblish/__logging__.ini
+include versioneer.py
+include artellapipe/libs/pyblish/_version.py
