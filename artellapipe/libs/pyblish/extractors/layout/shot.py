@@ -1,4 +1,19 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+Module that contains layout shot extractor implementation for ArtellaPipe
+"""
+
+from __future__ import print_function, division, absolute_import
+
+__author__ = "Tomas Poveda"
+__license__ = "MIT"
+__maintainer__ = "Tomas Poveda"
+__email__ = "tpovedatd@gmail.com"
+
 import os
+from distutils import util
 
 import pyblish.api
 
@@ -23,7 +38,7 @@ class ExportShot(pyblish.api.InstancePlugin):
         project = instance.data.get('project', None)
         assert project, 'No valid project defined in current instance: {}'.format(instance)
 
-        shots_config = tp.ConfigsMgr().get_config(config_name='artellapipe-launcher-plugins-dccselector')
+        shots_config = tp.ConfigsMgr().get_config(config_name='artellapipe-shots')
 
         assert shots_config, 'No valid shots configuration file found in current instance: {}'.format(instance)
 
@@ -54,8 +69,8 @@ class ExportShot(pyblish.api.InstancePlugin):
                 break
         assert found, 'Shot with name: "{}" not found in current sequence!'.format(shot_name)
 
-        new_version = bool(os.environ.get(
-            '{}_SEQUENCES_PUBLISHER_NEW_VERSION'.format(project.get_clean_name().upper()), False))
+        new_version = bool(util.strtobool(os.environ.get(
+            '{}_SEQUENCES_PUBLISHER_NEW_VERSION'.format(project.get_clean_name().upper()), 'False')))
         base_comment = '{} | {} | Sequences Publisher > Shot "{}" Export'.format(
             timedate.get_current_time(), osplatform.get_user(True), shot_name)
         comment = instance.data.get('comment', None)
