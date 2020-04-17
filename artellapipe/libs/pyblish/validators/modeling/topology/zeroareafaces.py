@@ -28,7 +28,7 @@ class SelectZeroAreaFaces(pyblish.api.Action):
             return False
 
         for instance in context:
-            if not instance.data['publish'] or instance.data['_has_succeeded']:
+            if not instance.data['publish'] or not instance.data['_has_failed']:
                 continue
 
             node = instance.data.get('node', None)

@@ -33,7 +33,9 @@ class UnlockNormals(pyblish.api.Action):
             if not instance.data['publish']:
                 continue
 
-            for mesh in maya.cmds.ls(instance, type='mesh', long=True):
+            node = instance.data.get('node')
+
+            for mesh in maya.cmds.listRelatives(node, type='mesh', fullPath=True):
                 faces = maya.cmds.polyListComponentConversion(mesh, toVertexFace=True)
                 maya.cmds.polyNormalPerVertex(faces, edit=True, unFreezeNormal=True)
 
@@ -43,7 +45,7 @@ class ValidateNormals(pyblish.api.InstancePlugin):
     Normals of a model may not be locked
     """
 
-    label = 'Normals'
+    label = 'Topology - Normals'
     order = pyblish.api.ValidatorOrder
     hosts = ['maya']
     families = ['geometry']
@@ -54,8 +56,10 @@ class ValidateNormals(pyblish.api.InstancePlugin):
 
         import tpDcc.dccs.maya as maya
 
+        node = instance.data.get('node')
+
         invalid = list()
-        for mesh in maya.cmds.ls(instance, type='mesh', long=True):
+        for mesh in maya.cmds.listRelatives(node, type='mesh', fullPath=True):
             faces = maya.cmds.polyListComponentConversion(mesh, toVertexFace=True)
             locked = maya.cmds.polyNormalPerVertex(faces, query=True, freezeNormal=True)
             invalid.append(mesh) if any(locked) else None
