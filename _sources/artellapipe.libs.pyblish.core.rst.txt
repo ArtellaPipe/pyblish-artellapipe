@@ -5,6 +5,7 @@ Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 4
 
    artellapipe.libs.pyblish.core.publisher
    artellapipe.libs.pyblish.core.tool

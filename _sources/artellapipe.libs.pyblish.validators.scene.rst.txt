@@ -5,10 +5,12 @@ Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 4
 
    artellapipe.libs.pyblish.validators.scene.cleanscene
    artellapipe.libs.pyblish.validators.scene.displaylayers
    artellapipe.libs.pyblish.validators.scene.noshaders
+   artellapipe.libs.pyblish.validators.scene.shownodes
    artellapipe.libs.pyblish.validators.scene.studentlicense
 
 Module contents

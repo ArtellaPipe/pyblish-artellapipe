@@ -5,6 +5,7 @@ Subpackages
 -----------
 
 .. toctree::
+   :maxdepth: 4
 
    artellapipe.libs.pyblish.validators.modeling
    artellapipe.libs.pyblish.validators.scene

@@ -179,80 +179,80 @@
   <div class="section" id="module-artellapipe.libs.pyblish.validators.modeling.topology.lamina">
 <span id="artellapipe-libs-pyblish-validators-modeling-topology-lamina-module"></span><h1>artellapipe.libs.pyblish.validators.modeling.topology.lamina module<a class="headerlink" href="#module-artellapipe.libs.pyblish.validators.modeling.topology.lamina" title="Permalink to this headline">¶</a></h1>
 <p>Module that contains lamina validation implementation</p>
-<dl class="class">
+<dl class="py class">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.SelectLaminaFaces">
 <em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.pyblish.validators.modeling.topology.lamina.</code><code class="sig-name descname">SelectLaminaFaces</code><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.SelectLaminaFaces" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyblish.plugin.Action</span></code></p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.SelectLaminaFaces.id">
-<code class="sig-name descname">id</code><em class="property"> = '5c4af56d-a653-43e4-872c-3fd7d035534c'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.SelectLaminaFaces.id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">id</code><em class="property"> = '448675d1-5a87-467d-9d9c-373d2eaf5106'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.SelectLaminaFaces.id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.SelectLaminaFaces.label">
 <code class="sig-name descname">label</code><em class="property"> = 'Select Lamina Faces'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.SelectLaminaFaces.label" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.SelectLaminaFaces.on">
 <code class="sig-name descname">on</code><em class="property"> = 'failed'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.SelectLaminaFaces.on" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.SelectLaminaFaces.process">
-<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">context</em>, <em class="sig-param">plugin</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.SelectLaminaFaces.process" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">context</span></em>, <em class="sig-param"><span class="n">plugin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.SelectLaminaFaces.process" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina">
 <em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.pyblish.validators.modeling.topology.lamina.</code><code class="sig-name descname">ValidateLamina</code><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyblish.plugin.InstancePlugin</span></code></p>
 <p>Checks if there are geometry with lamina faces (face that folds over onto itself)</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.actions">
 <code class="sig-name descname">actions</code><em class="property"> = [&lt;class 'artellapipe.libs.pyblish.validators.modeling.topology.lamina.SelectLaminaFaces'&gt;]</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.actions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.families">
 <code class="sig-name descname">families</code><em class="property"> = ['geometry']</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.families" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.hosts">
 <code class="sig-name descname">hosts</code><em class="property"> = ['maya']</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.hosts" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.id">
-<code class="sig-name descname">id</code><em class="property"> = '50ea2a86-687d-4551-8deb-16352ba348ac'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">id</code><em class="property"> = '0dd1292e-159d-4e39-9ff5-7d2fceba2db9'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.label">
 <code class="sig-name descname">label</code><em class="property"> = 'Topology - Lamina'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.label" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.log">
 <code class="sig-name descname">log</code><em class="property"> = &lt;Logger pyblish.ValidateLamina (DEBUG)&gt;</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.log" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.optional">
 <code class="sig-name descname">optional</code><em class="property"> = False</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.optional" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.order">
 <code class="sig-name descname">order</code><em class="property"> = 1</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.process">
-<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">instance</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.process" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">instance</span></em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.lamina.ValidateLamina.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Primary processing method</p>
 <dl class="simple">
 <dt>Arguments:</dt><dd><p>instance (Instance): Instance with which to process</p>

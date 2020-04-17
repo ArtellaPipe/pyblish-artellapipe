@@ -5,6 +5,7 @@ Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 4
 
    artellapipe.libs.pyblish.validators.modeling.uvs.crossborder
    artellapipe.libs.pyblish.validators.modeling.uvs.missinguvs

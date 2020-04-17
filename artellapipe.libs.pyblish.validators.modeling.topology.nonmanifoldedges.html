@@ -179,80 +179,80 @@
   <div class="section" id="module-artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges">
 <span id="artellapipe-libs-pyblish-validators-modeling-topology-nonmanifoldedges-module"></span><h1>artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges module<a class="headerlink" href="#module-artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges" title="Permalink to this headline">¶</a></h1>
 <p>Module that contains non manifold edge validation implementation</p>
-<dl class="class">
+<dl class="py class">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.SelectNonManifoldEdges">
 <em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.</code><code class="sig-name descname">SelectNonManifoldEdges</code><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.SelectNonManifoldEdges" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyblish.plugin.Action</span></code></p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.SelectNonManifoldEdges.id">
-<code class="sig-name descname">id</code><em class="property"> = '7da3ef17-7bc7-4973-82cc-f40b22d927c4'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.SelectNonManifoldEdges.id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">id</code><em class="property"> = 'fe4dab4a-1a34-4824-89e4-d5c2ce95bd1f'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.SelectNonManifoldEdges.id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.SelectNonManifoldEdges.label">
 <code class="sig-name descname">label</code><em class="property"> = 'Select Non-Manifold Edges'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.SelectNonManifoldEdges.label" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.SelectNonManifoldEdges.on">
 <code class="sig-name descname">on</code><em class="property"> = 'failed'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.SelectNonManifoldEdges.on" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.SelectNonManifoldEdges.process">
-<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">context</em>, <em class="sig-param">plugin</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.SelectNonManifoldEdges.process" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">context</span></em>, <em class="sig-param"><span class="n">plugin</span></em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.SelectNonManifoldEdges.process" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges">
 <em class="property">class </em><code class="sig-prename descclassname">artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.</code><code class="sig-name descname">ValidateNonManifoldEdges</code><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pyblish.plugin.InstancePlugin</span></code></p>
 <p>Checks if there are geometry with non manifold edges</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.actions">
 <code class="sig-name descname">actions</code><em class="property"> = [&lt;class 'artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.SelectNonManifoldEdges'&gt;]</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.actions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.families">
 <code class="sig-name descname">families</code><em class="property"> = ['geometry']</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.families" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.hosts">
 <code class="sig-name descname">hosts</code><em class="property"> = ['maya']</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.hosts" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.id">
-<code class="sig-name descname">id</code><em class="property"> = 'c462ce99-2342-41cd-a399-e23d8a44151f'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">id</code><em class="property"> = '7e8e75cf-2b9f-4b61-bddd-e41716057094'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.label">
 <code class="sig-name descname">label</code><em class="property"> = 'Topology - Non-Manifold Edges'</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.label" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.log">
 <code class="sig-name descname">log</code><em class="property"> = &lt;Logger pyblish.ValidateNonManifoldEdges (DEBUG)&gt;</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.log" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.optional">
 <code class="sig-name descname">optional</code><em class="property"> = False</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.optional" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.order">
 <code class="sig-name descname">order</code><em class="property"> = 1</em><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.process">
-<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">instance</em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.process" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">instance</span></em><span class="sig-paren">)</span><a class="headerlink" href="#artellapipe.libs.pyblish.validators.modeling.topology.nonmanifoldedges.ValidateNonManifoldEdges.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Primary processing method</p>
 <dl class="simple">
 <dt>Arguments:</dt><dd><p>instance (Instance): Instance with which to process</p>

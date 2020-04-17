@@ -5,6 +5,7 @@ Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 4
 
    artellapipe.libs.pyblish.collectors.modeling.collectgeometry
 

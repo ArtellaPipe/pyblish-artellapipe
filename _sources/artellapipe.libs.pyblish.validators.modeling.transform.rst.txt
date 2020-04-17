@@ -5,6 +5,7 @@ Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 4
 
    artellapipe.libs.pyblish.validators.modeling.transform.parentgeometry
    artellapipe.libs.pyblish.validators.modeling.transform.uncenteredpivots

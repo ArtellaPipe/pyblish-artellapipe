@@ -5,11 +5,13 @@ Submodules
 ----------
 
 .. toctree::
+   :maxdepth: 4
 
    artellapipe.libs.pyblish.validators.modeling.general.cleanhistory
    artellapipe.libs.pyblish.validators.modeling.general.displaylayers
    artellapipe.libs.pyblish.validators.modeling.general.emptygroups
    artellapipe.libs.pyblish.validators.modeling.general.smoothpreview
+   artellapipe.libs.pyblish.validators.modeling.general.visibility
 
 Module contents
 ---------------
