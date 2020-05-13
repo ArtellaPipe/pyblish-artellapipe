@@ -46,9 +46,17 @@ class ValidateHidedNodes(pyblish.api.ContextPlugin):
 
     def process(self, context):
 
+        if not tp.is_maya():
+            self.log.warning('Hide Nodes Validator is only available in Maya!')
+            return False
+
+        default_nodes = ['|front', '|left', '|persp', '|side', '|top']
+
         hide_nodes = list()
         transforms = tp.Dcc.list_nodes(node_type='transform')
         for node in transforms:
+            if node in default_nodes:
+                continue
             is_visible = tp.Dcc.get_attribute_value(node, 'visibility')
             if not is_visible:
                 hide_nodes.append(node)
