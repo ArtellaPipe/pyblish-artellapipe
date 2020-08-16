@@ -1,0 +1,18 @@
+artellapipe.libs.pyblish.managers package
+=========================================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   artellapipe.libs.pyblish.managers.pyblishplugins
+
+Module contents
+---------------
+
+.. automodule:: artellapipe.libs.pyblish.managers
+   :members:
+   :undoc-members:
+   :show-inheritance:
