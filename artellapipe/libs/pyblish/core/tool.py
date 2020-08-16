@@ -19,12 +19,15 @@ import pyblish_lite
 
 import tpDcc as tp
 
-import artellapipe.register
+import artellapipe
+from artellapipe.core import tool
+from artellapipe.libs.pyblish.managers import pyblishplugins
 
-LOGGER = logging.getLogger()
+
+LOGGER = logging.getLogger('artellapipe-libs-pyblish')
 
 
-class ArtellaPyblishTool(artellapipe.ToolWidget, object):
+class ArtellaPyblishTool(tool.ArtellaToolWidget, object):
     def __init__(self, project, config, settings, parent):
 
         self._pyblish_window = None
@@ -133,7 +136,7 @@ class ArtellaPyblishTool(artellapipe.ToolWidget, object):
             return
 
         for plugin_name, plugin_attrs in plugins_to_register.items():
-            plugin_class = artellapipe.PyblishMgr().get_plugin(plugin_name)
+            plugin_class = pyblishplugins.PyblishPluginsManager().get_plugin(plugin_name)
             if not plugin_class:
                 LOGGER.warning('Impossible to load Pyblish Plugin: {}!'.format(plugin_name))
                 continue
@@ -152,6 +155,3 @@ class ArtellaPyblishTool(artellapipe.ToolWidget, object):
 
     def _on_controller_reset(self):
         self._pyblish_window.controller.context.data['project'] = self._project
-
-
-artellapipe.register.register_class('PyblishTool', ArtellaPyblishTool)
