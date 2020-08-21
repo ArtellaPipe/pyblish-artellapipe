@@ -1,13 +1,7 @@
 # ===================================================================
 # artellapipe-libs-pyblish requirements file
 # ===================================================================
-Qt.py
-pytest
-pytest-cov
-coveralls
-sphinx
-sphinx_rtd_theme
+pyblish-base==1.8.7
+pyblish-lite==0.8.6
 tpDcc-libs-python
 tpDcc-core
-pyblish-base>=1.4
-pyblish-lite
